@@ -2,10 +2,13 @@
   "name": "swig",
   "version": "0.0.1",
   "description": "Electron app that fires off gulp utilities",
-  "main": "app.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ominestre",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^0.4.1"
+  }
 }
