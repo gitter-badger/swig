@@ -10,5 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "electron": "^0.4.1"
+  },
+  "scripts": {
+    "start": "set ELECTRON_ENABLE_LOGGING=true&&electron .",
+    "prod": "set NODE_ENV=production&&electron ."
   }
 }
