@@ -7,9 +7,13 @@
 /*jshint esversion: 6 */
 'use strict';
 
-const {ipcMain} = require('electron');
+const {app, ipcMain} = require('electron');
 
 module.exports = () => {
+    ipcMain.on('app-exit', (event, ard) => {
+        app.quit();
+    });
+    
     ipcMain.on('ipc-test-start', (event, arg) => {
         console.log('You have done science!');
         event.sender.send('ipc-test-reply');

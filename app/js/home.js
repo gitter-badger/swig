@@ -4,16 +4,22 @@
 
 const {ipcRenderer} = require('electron');
 
-let testButton = document.querySelector('.app-events-test');
+let exitApp = document.querySelector('#app-exit');
 
-console.log(testButton);
-
-testButton.addEventListener('click', function() {
-    console.log('clicked');
-    ipcRenderer.send('ipc-test-start');
+exitApp.addEventListener('click', function() {
+    ipcRenderer.send('app-exit');
 });
 
+/** test code **/
 
-ipcRenderer.on('ipc-test-reply', (event, arg) => {
-    console.log('Even more SCIENCE!');
+let testButton = document.querySelector('.app-events-test'); 
+
+testButton.addEventListener('click', function() { 
+    console.log('clicked'); 
+    ipcRenderer.send('ipc-test-start'); 
+}); 
+ 
+ 
+ipcRenderer.on('ipc-test-reply', (event, arg) => { 
+    console.log('Even more SCIENCE!'); 
 });
