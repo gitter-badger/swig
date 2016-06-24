@@ -28,4 +28,4 @@ function createWindow() {
 
 app.on('ready', createWindow);
 
-let routing = require('./app/controllers/routing')();
+let routing = require('./app/config/routing')();
