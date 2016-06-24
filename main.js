@@ -11,7 +11,11 @@ let win;                            // window global to prevent termination on g
 
 /** @desc creates a basic 800 x 600 window and pulls in the index.html file **/
 function createWindow() {
-    win = new BrowserWindow({width: 800, height: 600});
+    win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        frame: false
+    });
     
     win.loadURL(`file://${__dirname}/index.html`);
 
