@@ -2,10 +2,7 @@
 /*jshint esversion: 6 */
 'use strict';
 
-const electron = require('electron');
-
-const {app} = electron;             // Module to control application life.
-const {BrowserWindow} = electron;   // Module to create native browser window.
+const {app, BrowserWindow} = require('electron');             // Module to control application life.
 
 let win;                            // window global to prevent termination on garbage collection
 
@@ -31,4 +28,4 @@ function createWindow() {
 
 app.on('ready', createWindow);
 
-var routings = require('./app/controllers/routing');
+let routing = require('./app/controllers/routing')();

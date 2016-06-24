@@ -2,7 +2,7 @@
 /*jshint esversion: 6 */
 'use strict';
 
-let ipc = window.require('ipc');
+const {ipcRenderer} = require('electron');
 
 let testButton = document.querySelector('.app-events-test');
 
@@ -10,10 +10,10 @@ console.log(testButton);
 
 testButton.addEventListener('click', function() {
     console.log('clicked');
-    ipc.send('ipc-test-start');
+    ipcRenderer.send('ipc-test-start');
 });
 
 
-ipc.on('ipc-test-response', (event, arg) => {
+ipcRenderer.on('ipc-test-reply', (event, arg) => {
     console.log('Even more SCIENCE!');
 });
