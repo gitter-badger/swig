@@ -14,7 +14,7 @@ function createWindow() {
         frame: true
     });
     
-    win.loadURL(`file://${__dirname}/app/views/main.html`);
+    win.loadURL(`file://${__dirname}/app/views/home.html`);
 
     if(process.env.NODE_ENV != 'production'){
         win.webContents.openDevTools();
