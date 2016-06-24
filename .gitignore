@@ -1,2 +1,5 @@
 # Ignore all node modules
 /node_modules/
+
+# Ignore builds
+/public/

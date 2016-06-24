@@ -1,0 +1,16 @@
+.header {
+    height: 40px;
+    background-color: #f9c17c;
+    
+    .header-item {
+        display: inline-block;
+        
+        &.app-exit {
+            float: right;
+            height: 40px;
+            width: 40px;
+            font-size: 35px;
+            cursor: pointer;
+        }
+    }
+}
