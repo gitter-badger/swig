@@ -3,6 +3,7 @@
 'use strict';
 
 const {ipcRenderer} = require('electron');
+const $ = require('../js/jquery.js');
 
 let exitApp = document.querySelector('#app-exit');
 
