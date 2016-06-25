@@ -10,7 +10,7 @@ let home = {};
 // preserving as vanilla javascript for reference
 let exitApp = document.querySelector('#app-exit');
 
-exitApp.addEventListener('click', function() {
+exitApp.addEventListener('click', () => {
     ipcRenderer.send('app-exit');
 });
 
