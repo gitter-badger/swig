@@ -1,16 +1,116 @@
+.sandbox-connect-slide {
+    display: none;
+    width: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 40px;
+    left: 0;
+    height: 100%;
+    background-color: #5a5a5a;
+    
+    &.active {
+        display: block;
+        animation: leftFrameSlider .5s;
+        animation-fill-mode: forwards;
+    }
+}
+
+@keyframes leftFrameSlider {
+    from {
+        opacity: 0;
+        width: 0;
+    }
+    
+    to {
+        opacity: 1;
+        width: 500px;
+    }
+}
+
 .header {
     height: 40px;
-    background-color: #f9c17c;
+    background-color: #dad2c8;
     
     .header-item {
         display: inline-block;
+        font-size: 22px;
+        padding-top: 5px;
+        cursor: pointer;
+        
+        &:first-child {
+            margin-left: 10px;
+        }
+        
+        &.app-sandbox-connect {
+            height: 100%;
+            border-bottom: 5px solid;
+        }
         
         &.app-exit {
+            position: relative;
+            left: 12px;
+            bottom: 4px;
+            font: {
+                family: open-sans-semibold;
+                size: 35px;
+            }
+            padding-top: 0;
             float: right;
-            height: 40px;
+            height: 100%;
             width: 40px;
-            font-size: 35px;
-            cursor: pointer;
         }
+        
+        &.border-red {
+            border-color: #e83535;
+        }
+        
+        &.border-green {
+            border-color: #1dd633;
+        }
+    }
+}
+
+
+.sandbox-connect-slide {
+    color: #fff;
+    
+    .slide-title {
+        padding: 8px 0;
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-family: open-sans-bold;
+        font-size: 28px;
+        border-bottom: 1px solid #fff;
+    }
+    
+    .sandbox-login-form {
+        margin-top: 10px;
+        padding: 0 10px;
+        
+        .input-title {
+            display: block;
+            font-family: open-sans-semibold;
+            margin: 40px 0 10px;
+        }
+        
+        input {
+            width: 100%;
+            background: #fff;
+            height: 35px;
+            padding-left: 8px;
+        }
+    }
+    
+    .sandbox-login-submit {
+        margin: 20px 0 0 10px;
+        height: 50px;
+        border: 1px solid #fff;
+        width: 200px;
+        cursor: pointer;
+        padding-top: 8px;
+        text-align: center;
+        font-size: 22px;
+        font-family: open-sans-semibold;
     }
 }
