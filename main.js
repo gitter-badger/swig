@@ -4,13 +4,15 @@
 
 const {app, BrowserWindow} = require('electron');             // Module to control application life.
 
-let win;                            // window global to prevent termination on garbage collection
+let win;  // window global to prevent termination on garbage collection
+
+global.appRoot = __dirname;
 
 /** @desc creates a basic 800 x 600 window and pulls in the index.html file **/
 function createWindow() {
     win = new BrowserWindow({
         width: 800,
-        height: 600,
+        height: 1000,
         frame: true
     });
     
