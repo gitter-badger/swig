@@ -5,7 +5,7 @@
 const fs = require('fs');
 
 module.exports = function(event, args){
-    var file = `${global.appRoot}/sandbox.json`;
+    let file = `${global.appRoot}/sandbox.json`;
     
     fs.stat(file, (err, stats) => {
         if(process.env.NODE_ENV != 'production'){
