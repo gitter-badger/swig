@@ -8,17 +8,37 @@
   </head>
   <body class="app-drag">
     <header id="header" class="header">
-        <ul>
-            <li class="header-item">
-                Placeholder
-            </li>
-            <li id="app-exit" class="header-item app-exit">
-                X
-            </li>
-        </ul>
-        <div class="app-events-test">Click me for science!</div>
+        <div id="app-sandbox-connect" class="header-item app-sandbox-connect border-red">
+            Connect
+        </div>
+        <div id="app-exit" class="header-item app-exit">
+            X
+        </div>
     </header>
     
+    <div id="screen-sandbox-connect" class="sandbox-connect-slide">
+        <span class="slide-title">Sandbox Login</span>
+        
+        <div class="error-container">
+            <span class="connection-error">Error creating sandbox config.  Please try again.</span>
+        </div>
+        
+        <form class="sandbox-login-form">
+            <span class="input-title">Hostname</span>
+            <input type="text" class="input-hostname"></input>
+            
+            <span class="input-title">Username</span>
+            <input type="text" class="input-username"></input>
+            
+            <span class="input-title">Password</span>
+            <input type="password" class="input-password"></input>
+            
+            <span class="input-title">Active Code Staging Directory</span>
+            <input type="text" class="input-staging"></input>
+        </form>
+        
+        <div id="sandbox-login-submit" class="sandbox-login-submit">Login</div>
+    </div>
     <script src="../js/home.js"></script>
   </body>
 </html>

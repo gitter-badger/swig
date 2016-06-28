@@ -10,7 +10,8 @@
   "author": "ominestre",
   "license": "ISC",
   "dependencies": {
-    "electron": "^0.4.1"
+    "electron": "^0.4.1",
+    "request": "^2.72.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

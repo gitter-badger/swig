@@ -10,8 +10,12 @@
 const {app, ipcMain} = require('electron');
 
 module.exports = () => {
-    ipcMain.on('app-exit', (event, ard) => {
+    ipcMain.on('app-exit', (event, args) => {
         app.quit();
+    });
+    
+    ipcMain.on('app-sandbox-login', (event, args) => {
+        require('../controllers/sandbox-login')(event, args);
     });
     
     ipcMain.on('ipc-test-start', (event, arg) => {
