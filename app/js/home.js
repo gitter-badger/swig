@@ -7,12 +7,7 @@ const $ = require('../js/jquery.js');
 
 let home = {};
 
-// preserving as vanilla javascript for reference
-let exitApp = document.querySelector('#app-exit');
 
-exitApp.addEventListener('click', () => {
-    ipcRenderer.send('app-exit');
-});
 
 /**
     @namespace home.nav 
@@ -38,6 +33,10 @@ exitApp.addEventListener('click', () => {
     });
     
     let events = {
+        appExit : function(e){
+            ipcRenderer.send('app-exit');
+        },
+        
         connectClick : function(e){
             var $this = $(this);
             
@@ -52,14 +51,13 @@ exitApp.addEventListener('click', () => {
                 password : $cache.connectWindow.find('.input-password').val(),
                 staging : $cache.connectWindow.find('.input-staging').val()
             };
-            
-            console.log(data);
-            
+
             ipcRenderer.send('app-sandbox-login', data);
         }
     };
     
     function initCache(){
+        $cache.appExit = $('#app-exit');
         $cache.header = $('#header');
         $cache.connect = $('#app-sandbox-connect');
         $cache.connectWindow = $('#screen-sandbox-connect');
@@ -67,6 +65,7 @@ exitApp.addEventListener('click', () => {
     }
     
     function initEvents(){
+        $cache.appExit.on('click', events.appExit);
         $cache.connect.on('click', events.connectClick);
         $cache.sandboxSubmit.on('click', events.sandboxConnect);
     }
