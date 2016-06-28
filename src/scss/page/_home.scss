@@ -77,6 +77,10 @@
         
         span {
             display: none;
+            
+            &.active {
+                display: block;
+            }
         }
     }
     

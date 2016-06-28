@@ -21,13 +21,14 @@ exitApp.addEventListener('click', () => {
     ipcRenderer.on('login-success', () => {
         $cache.connect.removeClass('border-red');
         $cache.connect.addClass('border-green');
+        $cache.connectWindow.find('.connection-error').removeClass('active');
         $cache.connect.click();
     });
     
     ipcRenderer.on('login-failure', () => {
-        // TODO : add failure handeling and error messaging
         $cache.connect.removeClass('border-green');
         $cache.connect.addClass('border-red');
+        $cache.connectWindow.find('.connection-error').addClass('active');
     });
     
     let events = {
