@@ -14,7 +14,12 @@ exitApp.addEventListener('click', () => {
     ipcRenderer.send('app-exit');
 });
 
-/** @namespace home.nav **/
+/**
+    @namespace home.nav 
+    
+    TODO : This is now a mixed namespace with nav functionality and login functionality.  Consider breaking out sandbox
+        login into it's own namespace
+**/
 (function(home, $, ipcRenderer){
     let $cache = {};
     
