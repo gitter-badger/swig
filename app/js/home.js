@@ -21,6 +21,7 @@ exitApp.addEventListener('click', () => {
     ipcRenderer.on('login-success', () => {
         $cache.connect.removeClass('border-red');
         $cache.connect.addClass('border-green');
+        $cache.header.find('#app-sandbox-logs').addClass('active');
         $cache.connectWindow.find('.connection-error').removeClass('active');
         $cache.connect.click();
     });
@@ -54,6 +55,7 @@ exitApp.addEventListener('click', () => {
     };
     
     function initCache(){
+        $cache.header = $('#header');
         $cache.connect = $('#app-sandbox-connect');
         $cache.connectWindow = $('#screen-sandbox-connect');
         $cache.sandboxSubmit = $cache.connectWindow.find('#sandbox-login-submit');

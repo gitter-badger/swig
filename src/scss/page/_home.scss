@@ -7,14 +7,28 @@
         font-size: 22px;
         padding-top: 5px;
         cursor: pointer;
+        margin-right: 25px;
+        border-bottom: 5px solid;
         
         &:first-child {
             margin-left: 10px;
         }
         
+        &:last-child {
+            margin-right: 0;
+            border-bottom: none;
+        }
+        
         &.app-sandbox-connect {
             height: 100%;
-            border-bottom: 5px solid;
+        }
+        
+        &.app-sandbox-logs {
+            display: none;
+            
+            &.active {
+                display: inline-block;
+            }
         }
         
         &.app-exit {
