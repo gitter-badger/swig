@@ -7,11 +7,19 @@ const request = require('request');
 const _ = require('lodash');
 const parser = require('parse5');
 
+/**
+    @constructor for creating custom exception outputs
+**/
 function CreateException(name, message){
     this.name = name;
     this.message = message;
 }
 
+/**
+    @desc this was pulled from the demandware plugin dwlogs and parses through a response body in order to make a list of log files
+    
+    @param {String} response - this is the response body from the demandware instance containing a list of log files
+**/
 function getFiles(response){
     let document = parser.parse(response);
     let html = _.find(document.childNodes, {nodeName: 'html'});
@@ -30,6 +38,12 @@ function getFiles(response){
 	}, []);
 }
 
+/**
+    @desc make a request to the sandbox instance for a list of logs and pass them into the file handler function
+    
+    @param {Object} credentials - this is the include from the sandbox.json file containing your login credentials
+    @param {Object} event - this is the IPC event that will be used to respond back to the renderer process
+**/
 function getLogs(credentials, event){
     function handleFiles(err, inc, response){
         if(err){
@@ -55,6 +69,9 @@ function getLogs(credentials, event){
     }
 }
 
+/**
+    @desc used to parse a row of markup and output an object containing the link, name, and modified date for a log file
+**/
 function parseFileRow(row){
     let tds = _.filter(row.childNodes, {nodeName: 'td'});
     let fileLink = _.find(tds[0].childNodes, {nodeName: 'a'});
@@ -67,6 +84,9 @@ function parseFileRow(row){
 }
 
 module.exports = {
+    /**
+        @desc get a list of all logs on the demandware instance
+    **/
     getLogList : function(event, args){
         let file = `${global.appRoot}/sandbox.json`;
         
@@ -90,6 +110,9 @@ module.exports = {
         }
     },
     
+    /**
+        @desc fetch the contents of a single log file on a demandware instance
+    **/
     fetchLogFile : function(event,args){
 
     }
