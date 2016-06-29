@@ -30,7 +30,17 @@ function getFiles(response){
 	}, []);
 }
 
-function getLogs(credentials){
+function getLogs(credentials, event){
+    function handleFiles(err, inc, response){
+        if(err){
+            console.error(`Bad Response to Get Logs Request : ${err}`);
+        }
+        
+        let files = getFiles(response);
+        
+        event.sender.send('get-logs-response', files);
+    }
+    
     try {
         request({
             url : `https://${credentials.hostname}/on/demandware.servlet/webdav/Sites/Logs`,
@@ -39,15 +49,7 @@ function getLogs(credentials){
                 password: credentials.password
             },
             strictSSL : false
-        }, (err, res, response) => {
-            if(err) {
-                throw new CreateException('Bad Response to Get Logs Request', err.message);
-            }
-            
-            let files = getFiles(response);
-            
-            console.log(files);
-        });
+        }, handleFiles);
     } catch(e){
         console.error(`${e.name} : ${e.message}`);
     }
@@ -75,7 +77,7 @@ module.exports = function(event, args){
                         throw new CreateException('File Read Error', 'Could not read sandbox.json');
                     }
                     
-                    getLogs(JSON.parse(data));
+                    getLogs(JSON.parse(data), event);
                 });
             } else {
                 throw new CreateException('File Access Error', 'Could not access the sandbox.json file');

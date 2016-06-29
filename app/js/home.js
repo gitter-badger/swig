@@ -15,6 +15,16 @@ let home = {};
 (function(home, $, ipcRenderer){
     let $cache = {};
     
+    ipcRenderer.on('get-logs-response', (event, data) => {
+        var $html = $('<div class="list-of-logs"></div>');
+        
+        data.forEach((val, index, array) => {
+            $html.append(`<div class="log-name" data-href="${val.href}">${val.name}</div>`);
+        });
+        
+        $('body').append($html);
+    });
+    
     let events = {
         openLogsScreen : () => {
             console.log('log clicked');
@@ -27,7 +37,7 @@ let home = {};
     }
     
     function initEvents(){
-        $cache.logs.on('click', events.openLogsScreen)
+        $cache.logs.on('click', events.openLogsScreen);
     }
     
     home.logs = {
