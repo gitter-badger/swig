@@ -23,6 +23,7 @@ let home = {};
         });
         
         $cache.logScreen.find('.sandbox-logs-list').html($html);
+        $cache.logScreen.find('.log-name').on('click', events.getLog);
         $cache.logScreen.addClass('active');
     });
     
@@ -33,6 +34,17 @@ let home = {};
             } else {
                 ipcRenderer.send('app-get-logs');
             }
+        },
+        
+        getLog : (e) => {
+            let $this = $(e.currentTarget);
+            
+            let log = {
+                href : $this.data('href'),
+                name : $this.html()
+            };
+            
+            ipcRenderer.send('app-get-log', log);
         }
     };
     

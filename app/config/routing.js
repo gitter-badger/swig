@@ -26,5 +26,8 @@ module.exports = () => {
     ipcMain.on('app-get-logs', (event, arg) => {
         require('../controllers/sandbox-logs').getLogList(event, arg);
     });
+    
+    ipcMain.on('app-get-log', (event, log) => {
+        console.log(`get log ${log.name} at ${log.href}`);
     });
 };
