@@ -24,6 +24,6 @@ module.exports = () => {
     });
     
     ipcMain.on('app-get-logs', (event, arg) => {
-        console.log('fetching demandware logs');
+        require('../controllers/sandbox-logs')(event, arg);
     });
 };
