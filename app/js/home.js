@@ -22,18 +22,23 @@ let home = {};
             $html.append(`<div class="log-name" data-href="${val.href}">${val.name}</div>`);
         });
         
-        $('body').append($html);
+        $cache.logScreen.find('.sandbox-logs-list').html($html);
+        $cache.logScreen.addClass('active');
     });
     
     let events = {
         openLogsScreen : () => {
-            console.log('log clicked');
-            ipcRenderer.send('app-get-logs');
+            if($cache.logScreen.hasClass('active')){
+                $cache.logScreen.removeClass('active');
+            } else {
+                ipcRenderer.send('app-get-logs');
+            }
         }
     };
     
     function initCache(){
         $cache.logs = $('#app-sandbox-logs');
+        $cache.logScreen = $('#screen-sandbox-logs');
     }
     
     function initEvents(){
