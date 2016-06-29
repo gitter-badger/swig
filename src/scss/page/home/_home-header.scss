@@ -1,0 +1,56 @@
+.header {
+    height: 40px;
+    background-color: #dad2c8;
+    
+    .header-item {
+        display: inline-block;
+        font-size: 22px;
+        padding-top: 5px;
+        cursor: pointer;
+        margin-right: 25px;
+        border-bottom: 5px solid;
+        
+        &:first-child {
+            margin-left: 10px;
+        }
+        
+        &:last-child {
+            margin-right: 0;
+            border-bottom: none;
+        }
+        
+        &.app-sandbox-connect {
+            height: 100%;
+        }
+        
+        &.app-sandbox-logs {
+            display: none;
+            
+            &.active {
+                display: inline-block;
+            }
+        }
+        
+        &.app-exit {
+            position: relative;
+            left: 12px;
+            bottom: 4px;
+            font: {
+                family: open-sans-semibold;
+                size: 35px;
+            }
+            padding-top: 0;
+            float: right;
+            height: 100%;
+            width: 40px;
+        }
+        
+        &.border-red {
+            border-color: #e83535;
+        }
+        
+        &.border-green {
+            border-color: #1dd633;
+        }
+    }
+}
