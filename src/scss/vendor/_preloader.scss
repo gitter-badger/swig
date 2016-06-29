@@ -9,8 +9,9 @@
   width: 100%;
   height: 100%;
   background-color: rgba(14, 12, 12, 0.85);
+  z-index: 9999; //always on top
   
-  &.acive {
+  &.active {
     display: block;
   }
 }
