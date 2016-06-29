@@ -4,10 +4,30 @@
 
 const fs = require('fs');
 const request = require('request');
+const _ = require('lodash');
+const parser = require('parse5');
 
 function CreateException(name, message){
     this.name = name;
     this.message = message;
+}
+
+function getFiles(response){
+    let document = parser.parse(response);
+    let html = _.find(document.childNodes, {nodeName: 'html'});
+    let body = _.find(html.childNodes, {nodeName: 'body'});
+    let table = _.find(body.childNodes, {nodeName: 'table'});
+    let tbody = _.find(table.childNodes, {nodeName: 'tbody'});
+    let fileRows = tbody.childNodes;
+    
+    return fileRows.reduce(function (files, child, index) {
+		// skip the first row (title)
+		// only consider tr elements
+		if (child.nodeName === 'tr' && index !== 0) {
+			files.push(parseFileRow(child));
+		}
+		return files;
+	}, []);
 }
 
 function getLogs(credentials){
@@ -19,16 +39,29 @@ function getLogs(credentials){
                 password: credentials.password
             },
             strictSSL : false
-        }, (err, res, body) => {
+        }, (err, res, response) => {
             if(err) {
                 throw new CreateException('Bad Response to Get Logs Request', err.message);
             }
             
-            console.log(body);
+            let files = getFiles(response);
+            
+            console.log(files);
         });
     } catch(e){
         console.error(`${e.name} : ${e.message}`);
     }
+}
+
+function parseFileRow(row){
+    let tds = _.filter(row.childNodes, {nodeName: 'td'});
+    let fileLink = _.find(tds[0].childNodes, {nodeName: 'a'});
+    let fileModified = _.find(tds[2].childNodes, {nodeName: 'tt'});
+    return {
+        href: _.find(fileLink.attrs, {name: 'href'}).value,
+		name: _.find(fileLink.childNodes, {nodeName: 'tt'}).childNodes[0].value,
+		lastModified: fileModified.childNodes[0].value
+    };
 }
 
 module.exports = function(event, args){
