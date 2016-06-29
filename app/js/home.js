@@ -10,6 +10,37 @@ let home = {};
 
 
 /**
+    @namespace home.logs
+**/
+(function(home, $, ipcRenderer){
+    let $cache = {};
+    
+    let events = {
+        openLogsScreen : () => {
+            console.log('log clicked');
+            ipcRenderer.send('app-get-logs');
+        }
+    };
+    
+    function initCache(){
+        $cache.logs = $('#app-sandbox-logs');
+    }
+    
+    function initEvents(){
+        $cache.logs.on('click', events.openLogsScreen)
+    }
+    
+    home.logs = {
+        init : function(){
+            initCache();
+            initEvents();
+        }
+    };
+}(home = home || {}, $, ipcRenderer));
+
+
+
+/**
     @namespace home.nav 
     
     TODO : This is now a mixed namespace with nav functionality and login functionality.  Consider breaking out sandbox
@@ -116,4 +147,5 @@ let home = {};
 $(document).ready(() => {
     home.nav.init();
     home.utils.init();
+    home.logs.init();
 });

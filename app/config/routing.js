@@ -22,4 +22,8 @@ module.exports = () => {
         console.log('You have done science!');
         event.sender.send('ipc-test-reply');
     });
+    
+    ipcMain.on('app-get-logs', (event, arg) => {
+        console.log('fetching demandware logs');
+    });
 };
