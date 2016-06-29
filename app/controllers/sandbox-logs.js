@@ -66,25 +66,31 @@ function parseFileRow(row){
     };
 }
 
-module.exports = function(event, args){
-    let file = `${global.appRoot}/sandbox.json`;
+module.exports = {
+    getLogList : function(event, args){
+        let file = `${global.appRoot}/sandbox.json`;
+        
+        try {
+            fs.stat(file, (err, stats) => {
+                if(err === null){
+                    fs.readFile(file, (err, data) => {
+                        if(err) {
+                            throw new CreateException('File Read Error', 'Could not read sandbox.json');
+                        }
+                        
+                        getLogs(JSON.parse(data), event);
+                    });
+                } else {
+                    throw new CreateException('File Access Error', 'Could not access the sandbox.json file');
+                }
+            });
+        } catch(e) {
+            console.error(`${e.name} : ${e.message}`);
+            // TODO : sender bad status IPC to renderer process
+        }
+    },
     
-    try {
-        fs.stat(file, (err, stats) => {
-            if(err === null){
-                fs.readFile(file, (err, data) => {
-                    if(err) {
-                        throw new CreateException('File Read Error', 'Could not read sandbox.json');
-                    }
-                    
-                    getLogs(JSON.parse(data), event);
-                });
-            } else {
-                throw new CreateException('File Access Error', 'Could not access the sandbox.json file');
-            }
-        });
-    } catch(e) {
-        console.error(`${e.name} : ${e.message}`);
-        // TODO : sender bad status IPC to renderer process
+    fetchLogFile : function(event,args){
+
     }
 };

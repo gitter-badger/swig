@@ -24,6 +24,7 @@ module.exports = () => {
     });
     
     ipcMain.on('app-get-logs', (event, arg) => {
-        require('../controllers/sandbox-logs')(event, arg);
+        require('../controllers/sandbox-logs').getLogList(event, arg);
+    });
     });
 };
