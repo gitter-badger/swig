@@ -92,6 +92,28 @@ function getLogs(credentials, event){
 }
 
 /**
+
+**/
+function getLog(credentials, event, log){
+    console.log(credentials);
+    
+    request({
+        url : `https://${credentials.hostname}/on/demandware.servlet/webdav/Sites/Logs/${log.name}`,
+        auth : {
+            user : credentials.username,
+            password : credentials.password
+        },
+        strictSSL : false
+    }, (err, inc, response) => {
+        if(err) {
+            console.error(`Error retrieving log file : ${err}`);
+        }
+        
+        event.sender.send('get-log-file', response);
+    });
+}
+
+/**
     @desc used to parse a row of markup and output an object containing the link, name, and modified date for a log file
 **/
 function parseFileRow(row){
@@ -118,7 +140,9 @@ module.exports = {
     /**
         @desc fetch the contents of a single log file on a demandware instance
     **/
-    fetchLogFile : function(event, args){
+    fetchLogFile : function(event, log){
         let credentials = getCredentials();
+        
+        getLog(JSON.parse(credentials), event, log);
     }
 };

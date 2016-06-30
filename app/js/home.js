@@ -27,6 +27,10 @@ let home = {};
         $cache.logScreen.addClass('active');
     });
     
+    ipcRenderer.on('get-log-file', (event, data) => {
+        console.log(data);
+    });
+    
     let events = {
         openLogsScreen : () => {
             if($cache.logScreen.hasClass('active')){
