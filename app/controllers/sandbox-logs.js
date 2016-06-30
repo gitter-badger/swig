@@ -108,30 +108,11 @@ function parseFileRow(row){
 module.exports = {
     /**
         @desc get a list of all logs on the demandware instance
-        
-        TODO : refactor to use new getCredentials function
     **/
     getLogList : function(event, args){
-        let file = `${global.appRoot}/sandbox.json`;
+        let credentials = getCredentials();
         
-        try {
-            fs.stat(file, (err, stats) => {
-                if(err === null){
-                    fs.readFile(file, (err, data) => {
-                        if(err) {
-                            throw new CreateException('File Read Error', 'Could not read sandbox.json');
-                        }
-                        
-                        getLogs(JSON.parse(data), event);
-                    });
-                } else {
-                    throw new CreateException('File Access Error', 'Could not access the sandbox.json file');
-                }
-            });
-        } catch(e) {
-            console.error(`${e.name} : ${e.message}`);
-            // TODO : sender bad status IPC to renderer process
-        }
+        getLogs(JSON.parse(credentials), event);
     },
     
     /**
