@@ -16,6 +16,28 @@ function CreateException(name, message){
 }
 
 /**
+    @desc get credentials from the sandbox.json file
+**/
+function getCredentials(){
+    let credentials = `${global.appRoot}/sandbox.json`;
+    
+    try {
+        let fileStat = fs.statSync(credentials);
+        
+        if(fileStat.isFile()){
+            let file = fs.readFileSync(credentials);
+            
+            return file;
+        } else {
+            throw new CreateException('File Access Error', 'Could not find sandbox.json');
+        }
+    } catch(e){
+        console.error(`${e.name} : ${e.message}}`);
+        // TODO : send bad status IPC to renderer process
+    }
+}
+
+/**
     @desc this was pulled from the demandware plugin dwlogs and parses through a response body in order to make a list of log files
     
     @param {String} response - this is the response body from the demandware instance containing a list of log files
@@ -86,6 +108,8 @@ function parseFileRow(row){
 module.exports = {
     /**
         @desc get a list of all logs on the demandware instance
+        
+        TODO : refactor to use new getCredentials function
     **/
     getLogList : function(event, args){
         let file = `${global.appRoot}/sandbox.json`;
@@ -113,7 +137,7 @@ module.exports = {
     /**
         @desc fetch the contents of a single log file on a demandware instance
     **/
-    fetchLogFile : function(event,args){
-
+    fetchLogFile : function(event, args){
+        let credentials = getCredentials();
     }
 };
