@@ -95,8 +95,6 @@ function getLogs(credentials, event){
 
 **/
 function getLog(credentials, event, log){
-    console.log(credentials);
-    
     request({
         url : `https://${credentials.hostname}/on/demandware.servlet/webdav/Sites/Logs/${log.name}`,
         auth : {
