@@ -29,7 +29,15 @@ let home = {};
     });
     
     ipcRenderer.on('get-log-file', (event, data) => {
-        console.log(data);
+        let $html = $('<div class="log-view"></div>');
+        data = data.replace(/\[20/g, '{!BREAK}[20');
+        let logEntries = data.split(/\{\!BREAK\}/);
+
+        logEntries.forEach((val, index, array) => {
+            $html.append(`<div class="log-entry">${val}</div>`);
+        });
+        
+        $cache.logScreen.find('.sandbox-logs-viewer').html($html);
         home.utils.loader.hide();
     });
     

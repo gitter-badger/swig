@@ -42,8 +42,13 @@
     
     .sandbox-logs-viewer {
         float: none;
-        overflow: hidden;
+        overflow: auto;
         padding: 5px;
         height: 100%;
+        
+        .log-entry {
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
     }
 }
