@@ -25,10 +25,12 @@ let home = {};
         $cache.logScreen.find('.sandbox-logs-list').html($html);
         $cache.logScreen.find('.log-name').on('click', events.getLog);
         $cache.logScreen.addClass('active');
+        home.utils.loader.hide();
     });
     
     ipcRenderer.on('get-log-file', (event, data) => {
         console.log(data);
+        home.utils.loader.hide();
     });
     
     let events = {
@@ -36,11 +38,14 @@ let home = {};
             if($cache.logScreen.hasClass('active')){
                 $cache.logScreen.removeClass('active');
             } else {
+                home.utils.loader.show();
                 ipcRenderer.send('app-get-logs');
             }
         },
         
         getLog : (e) => {
+            home.utils.loader.show();
+            
             let $this = $(e.currentTarget);
             
             let log = {
