@@ -28,6 +28,6 @@ module.exports = () => {
     });
     
     ipcMain.on('app-get-log', (event, log) => {
-        console.log(`get log ${log.name} at ${log.href}`);
+        require('../controllers/sandbox-logs').fetchLogFile(event, log);
     });
 };
