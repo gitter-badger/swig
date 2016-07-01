@@ -8,6 +8,7 @@
 'use strict';
 
 const {app, ipcMain} = require('electron');
+const logController = require('../controllers/sandbox-logs');
 
 module.exports = () => {
     ipcMain.on('app-exit', (event, args) => {
@@ -23,11 +24,6 @@ module.exports = () => {
         event.sender.send('ipc-test-reply');
     });
     
-    ipcMain.on('app-get-logs', (event, arg) => {
-        require('../controllers/sandbox-logs').getLogList(event, arg);
-    });
-    
-    ipcMain.on('app-get-log', (event, log) => {
-        require('../controllers/sandbox-logs').fetchLogFile(event, log);
-    });
+    ipcMain.on('app-get-logs', logController.getLogList);
+    ipcMain.on('app-get-log', logController.fetchLogFile);
 };

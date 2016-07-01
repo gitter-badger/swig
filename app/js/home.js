@@ -46,8 +46,15 @@ let home = {};
             if($cache.logScreen.hasClass('active')){
                 $cache.logScreen.removeClass('active');
             } else {
+                let creds = {
+                    hostname : $cache.connectWindow.find('.input-hostname').val(),
+                    username : $cache.connectWindow.find('.input-username').val(),
+                    password : $cache.connectWindow.find('.input-password').val(),
+                    staging : $cache.connectWindow.find('.input-staging').val()
+                }
+                
                 home.utils.loader.show();
-                ipcRenderer.send('app-get-logs');
+                ipcRenderer.send('app-get-logs', creds);
             }
         },
         
@@ -56,18 +63,27 @@ let home = {};
             
             let $this = $(e.currentTarget);
             
-            let log = {
-                href : $this.data('href'),
-                name : $this.html()
+            let args = {
+                log : {
+                    href : $this.data('href'),
+                    name : $this.html()
+                },
+                creds : {
+                    hostname : $cache.connectWindow.find('.input-hostname').val(),
+                    username : $cache.connectWindow.find('.input-username').val(),
+                    password : $cache.connectWindow.find('.input-password').val(),
+                    staging : $cache.connectWindow.find('.input-staging').val()
+                }
             };
             
-            ipcRenderer.send('app-get-log', log);
+            ipcRenderer.send('app-get-log', args);
         }
     };
     
     function initCache(){
         $cache.logs = $('#app-sandbox-logs');
         $cache.logScreen = $('#screen-sandbox-logs');
+        $cache.connectWindow = $('#screen-sandbox-connect');
     }
     
     function initEvents(){
