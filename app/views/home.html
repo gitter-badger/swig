@@ -7,9 +7,17 @@
     <link rel="stylesheet" href="../../public/css/style.css">
   </head>
   <body class="app-drag">
+    <div id="page-loader" class="preloader-container">
+        <!-- CSS Preloader : Credit to Deineko @ https://codepen.io/deineko/pen/EPwPNV -->
+        <div class="preloader"></div>
+    </div>
+    
     <header id="header" class="header">
         <div id="app-sandbox-connect" class="header-item app-sandbox-connect border-red">
             Connect
+        </div>
+        <div id="app-sandbox-logs" class="header-item app-sandbox-logs border-red">
+            Logs
         </div>
         <div id="app-exit" class="header-item app-exit">
             X
@@ -39,6 +47,15 @@
         
         <div id="sandbox-login-submit" class="sandbox-login-submit">Login</div>
     </div>
+    
+    <div id="screen-sandbox-logs" class="sandbox-logs-slide">
+        <div class="sandbox-logs-controls">controls</div>
+        <ul>
+            <li class="sandbox-logs-list"></li>
+            <li class="sandbox-logs-viewer">viewer</li>
+        </ul>
+    </div>
+    
     <script src="../js/home.js"></script>
   </body>
 </html>

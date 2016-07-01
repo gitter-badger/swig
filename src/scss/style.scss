@@ -5,4 +5,9 @@
   'base/fonts';
 
 @import
-  'page/home';
+  'vendor/preloader';
+
+@import
+  'page/home/home-header',
+  'page/home/sandbox-connect',
+  'page/home/sandbox-logs';
