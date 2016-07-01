@@ -13,6 +13,7 @@
         display: block;
         animation: leftFrameSlider .5s;
         animation-fill-mode: forwards;
+        z-index: 10;
     }
     
     .slide-title {
