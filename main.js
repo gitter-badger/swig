@@ -29,5 +29,8 @@ function createWindow() {
 }
 
 app.on('ready', createWindow);
+app.on('window-all-closed', () => {
+    app.quit();
+});
 
 let routing = require('./app/config/routing')();
