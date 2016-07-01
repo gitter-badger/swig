@@ -43,10 +43,10 @@
     .sandbox-logs-viewer {
         float: none;
         overflow: auto;
-        padding: 5px;
+        padding: 5px 10px;
         height: 100%;
         
-        .log-entry {
+        pre {
             margin-bottom: 10px;
             font-size: 12px;
         }

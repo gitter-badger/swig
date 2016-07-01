@@ -34,7 +34,7 @@ let home = {};
         let logEntries = data.split(/\{\!BREAK\}/);
 
         logEntries.forEach((val, index, array) => {
-            $html.append(`<div class="log-entry">${val}</div>`);
+            $html.append(`<pre style="word-wrap: break-word; white-space: pre-wrap;">${val}</pre>`);
         });
         
         $cache.logScreen.find('.sandbox-logs-viewer').html($html);
