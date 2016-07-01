@@ -18,7 +18,7 @@ function createWindow() {
     
     win.loadURL(`file://${__dirname}/app/views/home.html`);
 
-    if(process.env.NODE_ENV != 'production'){
+    if(process.env.NODE_ENV == 'dev'){
         win.webContents.openDevTools();
     }
 
