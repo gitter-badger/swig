@@ -65,6 +65,9 @@ let home = {};
                 }
             };
             
+            $cache.activeLog.data('href', args.log.href);
+            $cache.activeLog.html(args.log.name);
+            
             args.creds = getCredentials();
             
             ipcRenderer.send('app-get-log', args);
@@ -75,6 +78,21 @@ let home = {};
             
             home.utils.loader.show();
             ipcRenderer.send('app-get-logs', creds);
+        },
+        
+        refreshLogFile : (e) => {
+            home.utils.loader.show();
+            
+            let args = {
+                log : {
+                    href : $cache.activeLog.data('href'),
+                    name : $cache.activeLog.html()
+                }
+            };
+            
+            args.creds = getCredentials();
+            
+            ipcRenderer.send('app-get-log', args);
         }
     };
     
@@ -93,12 +111,16 @@ let home = {};
         $cache.logs = $('#app-sandbox-logs');
         $cache.logScreen = $('#screen-sandbox-logs');
         $cache.connectWindow = $('#screen-sandbox-connect');
-        $cache.refreshFile = $('#refresh-log-list');
+        $cache.refreshList = $('#refresh-log-list');
+        $cache.refreshFile = $('#refresh-log-view');
+        $cache.clearLogFile = $('#clear-log-file');
+        $cache.activeLog = $('#active-log-file');
     }
     
     function initEvents(){
         $cache.logs.on('click', events.openLogsScreen);
-        $cache.refreshFile.on('click', events.refreshLogList);
+        $cache.refreshList.on('click', events.refreshLogList);
+        $cache.refreshFile.on('click', events.refreshLogFile);
     }
     
     home.logs = {
