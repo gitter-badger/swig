@@ -1,8 +1,5 @@
 .sandbox-logs-slide {
     display: none;
-    position: fixed;
-    top: 40px;
-    left: 0;
     height: 100%;
     width: 100%;
     
@@ -37,6 +34,10 @@
             &:hover {
                 text-decoration: underline;
             }
+            
+            &:last-child {
+                margin-bottom: 40px;
+            }
         }
     }
     
@@ -49,6 +50,10 @@
         pre {
             margin-bottom: 10px;
             font-size: 12px;
+            
+            &:last-child {
+                margin-bottom: 80px;
+            }
         }
     }
 }
