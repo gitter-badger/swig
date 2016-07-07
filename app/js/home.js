@@ -51,7 +51,7 @@ let home = {};
                     username : $cache.connectWindow.find('.input-username').val(),
                     password : $cache.connectWindow.find('.input-password').val(),
                     staging : $cache.connectWindow.find('.input-staging').val()
-                }
+                };
                 
                 home.utils.loader.show();
                 ipcRenderer.send('app-get-logs', creds);
