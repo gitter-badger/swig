@@ -41,6 +41,11 @@ let home = {};
         home.utils.loader.hide();
     });
     
+    ipcRenderer.on('reset-log-file', (event, data) => {
+        $cache.logScreen.find('.sandbox-logs-viewer').html('Log Cleared');
+        home.utils.loader.hide();
+    });
+    
     let events = {
         openLogsScreen : () => {
             if($cache.logScreen.hasClass('active')){
@@ -93,6 +98,21 @@ let home = {};
             args.creds = getCredentials();
             
             ipcRenderer.send('app-get-log', args);
+        },
+        
+        clearLogFile : (e) => {
+            home.utils.loader.show();
+            
+            let args = {
+                log : {
+                    href : $cache.activeLog.data('href'),
+                    name : $cache.activeLog.html()
+                }
+            };
+            
+            args.creds = getCredentials();
+            
+            ipcRenderer.send('app-clear-log-file', args);
         }
     };
     
@@ -121,6 +141,7 @@ let home = {};
         $cache.logs.on('click', events.openLogsScreen);
         $cache.refreshList.on('click', events.refreshLogList);
         $cache.refreshFile.on('click', events.refreshLogFile);
+        $cache.clearLogFile.on('click', events.clearLogFile);
     }
     
     home.logs = {

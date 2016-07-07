@@ -26,4 +26,5 @@ module.exports = () => {
     
     ipcMain.on('app-get-logs', logController.getLogList);
     ipcMain.on('app-get-log', logController.fetchLogFile);
+    ipcMain.on('app-clear-log-file', logController.clearLogFile);
 };
