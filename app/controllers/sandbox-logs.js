@@ -6,6 +6,8 @@ const fs = require('fs');
 const request = require('request');
 const _ = require('lodash');
 const parser = require('parse5');
+const app = require('electron');
+
 
 /**
     @constructor for creating custom exception outputs
@@ -90,6 +92,41 @@ function getLog(credentials, event, log){
 }
 
 /**
+    @desc creates an empty file in AppData and pushes this to your sandbox so that it will reset your current log file to a default empty state
+**/
+function clearLog(credentials, event, log){
+    let appData = global.userData;
+    
+    fs.writeFileSync(`${appData}\\${log.name}`, '');
+    
+    fs.createReadStream(`${appData}\\${log.name}`).pipe(
+        request({
+            url : `https://${credentials.hostname}/on/demandware.servlet/webdav/Sites/Logs/${log.name}`,
+            auth : {
+                user : credentials.username,
+                password : credentials.password
+            },
+            strictSSL : false,
+            method : 'PUT'
+        }, (err, res, body) => {
+            if(err){
+                console.error(`ERROR: file transfer failed with the following...\n ${err.message}`);
+                process.exit(1);
+            } else if(res.statusCode >= 400){
+                console.error(`ERROR: server responded with status code ${res.statusCode}`);
+                
+                if(res.statusCode === 401){
+                    // TODO : Prompt user if they would like to launch the sandbox.json creation script
+                    console.error('A 401:Unauthorized response might indicate bad credentials');
+                }
+            }
+        })
+    );
+    
+    event.sender.send('reset-log-file');
+}
+
+/**
     @desc used to parse a row of markup and output an object containing the link, name, and modified date for a log file
 **/
 function parseFileRow(row){
@@ -116,5 +153,12 @@ module.exports = {
     **/
     fetchLogFile : function(event, args){
         getLog(args.creds, event, args.log);
+    },
+    
+    /**
+        @desc send an empty file with the same name as a current file to reset it to a neutral state
+    **/
+    clearLogFile : function(event, args){
+        clearLog(args.creds, event, args.log);
     }
 };

@@ -7,6 +7,7 @@ const {app, BrowserWindow} = require('electron');             // Module to contr
 let win;  // window global to prevent termination on garbage collection
 
 global.appRoot = __dirname;
+global.userData = app.getPath('userData');
 
 /** @desc creates a basic 800 x 600 window and pulls in the index.html file **/
 function createWindow() {

@@ -49,7 +49,16 @@
     </div>
     
     <div id="screen-sandbox-logs" class="sandbox-logs-slide">
-        <div class="sandbox-logs-controls">controls</div>
+        <div class="sandbox-logs-controls">
+            <div id="active-log-file" style="display: none !important;"></div>
+            <div class="log-list-controls">
+                <div id="refresh-log-list" class="log-control-button">Refresh List</div>
+            </div>
+            <div class="log-view-controls">
+                <div id="refresh-log-view" class="log-control-button">Refresh File</div>
+                <div id="clear-log-file" class="log-control-button">Reset Log File</div>
+            </div>
+        </div>
         <ul>
             <li class="sandbox-logs-list"></li>
             <li class="sandbox-logs-viewer">viewer</li>

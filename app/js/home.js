@@ -41,17 +41,17 @@ let home = {};
         home.utils.loader.hide();
     });
     
+    ipcRenderer.on('reset-log-file', (event, data) => {
+        $cache.logScreen.find('.sandbox-logs-viewer').html('Log Cleared');
+        home.utils.loader.hide();
+    });
+    
     let events = {
         openLogsScreen : () => {
             if($cache.logScreen.hasClass('active')){
                 $cache.logScreen.removeClass('active');
             } else {
-                let creds = {
-                    hostname : $cache.connectWindow.find('.input-hostname').val(),
-                    username : $cache.connectWindow.find('.input-username').val(),
-                    password : $cache.connectWindow.find('.input-password').val(),
-                    staging : $cache.connectWindow.find('.input-staging').val()
-                };
+                let creds = getCredentials();
                 
                 home.utils.loader.show();
                 ipcRenderer.send('app-get-logs', creds);
@@ -67,27 +67,81 @@ let home = {};
                 log : {
                     href : $this.data('href'),
                     name : $this.html()
-                },
-                creds : {
-                    hostname : $cache.connectWindow.find('.input-hostname').val(),
-                    username : $cache.connectWindow.find('.input-username').val(),
-                    password : $cache.connectWindow.find('.input-password').val(),
-                    staging : $cache.connectWindow.find('.input-staging').val()
                 }
             };
             
+            $cache.activeLog.data('href', args.log.href);
+            $cache.activeLog.html(args.log.name);
+            
+            args.creds = getCredentials();
+            
             ipcRenderer.send('app-get-log', args);
+        },
+        
+        refreshLogList : (e) => {
+            let creds = getCredentials();
+            
+            home.utils.loader.show();
+            ipcRenderer.send('app-get-logs', creds);
+        },
+        
+        refreshLogFile : (e) => {
+            home.utils.loader.show();
+            
+            let args = {
+                log : {
+                    href : $cache.activeLog.data('href'),
+                    name : $cache.activeLog.html()
+                }
+            };
+            
+            args.creds = getCredentials();
+            
+            ipcRenderer.send('app-get-log', args);
+        },
+        
+        clearLogFile : (e) => {
+            home.utils.loader.show();
+            
+            let args = {
+                log : {
+                    href : $cache.activeLog.data('href'),
+                    name : $cache.activeLog.html()
+                }
+            };
+            
+            args.creds = getCredentials();
+            
+            ipcRenderer.send('app-clear-log-file', args);
         }
     };
+    
+    function getCredentials(){
+        let creds = {
+            hostname : $cache.connectWindow.find('.input-hostname').val(),
+            username : $cache.connectWindow.find('.input-username').val(),
+            password : $cache.connectWindow.find('.input-password').val(),
+            staging : $cache.connectWindow.find('.input-staging').val()
+        };
+        
+        return creds;
+    }
     
     function initCache(){
         $cache.logs = $('#app-sandbox-logs');
         $cache.logScreen = $('#screen-sandbox-logs');
         $cache.connectWindow = $('#screen-sandbox-connect');
+        $cache.refreshList = $('#refresh-log-list');
+        $cache.refreshFile = $('#refresh-log-view');
+        $cache.clearLogFile = $('#clear-log-file');
+        $cache.activeLog = $('#active-log-file');
     }
     
     function initEvents(){
         $cache.logs.on('click', events.openLogsScreen);
+        $cache.refreshList.on('click', events.refreshLogList);
+        $cache.refreshFile.on('click', events.refreshLogFile);
+        $cache.clearLogFile.on('click', events.clearLogFile);
     }
     
     home.logs = {
