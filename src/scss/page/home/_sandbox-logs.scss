@@ -57,3 +57,28 @@
         }
     }
 }
+
+.log-list-controls {
+    float: left;
+    padding-left: 10px;
+}
+
+.log-view-controls {
+    float: right;
+    padding-right: 10px;
+}
+
+.log-control-button {
+    height: 34px;
+    margin-top: 3px;
+    padding: 5px 5px 0;
+    font-size: 18px;
+    float: left;
+    margin-left: 10px;
+    border: 1px solid #000;
+    cursor: pointer;
+    
+    &:first-child {
+        margin-left: 0;
+    }
+}

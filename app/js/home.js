@@ -46,12 +46,7 @@ let home = {};
             if($cache.logScreen.hasClass('active')){
                 $cache.logScreen.removeClass('active');
             } else {
-                let creds = {
-                    hostname : $cache.connectWindow.find('.input-hostname').val(),
-                    username : $cache.connectWindow.find('.input-username').val(),
-                    password : $cache.connectWindow.find('.input-password').val(),
-                    staging : $cache.connectWindow.find('.input-staging').val()
-                };
+                let creds = getCredentials();
                 
                 home.utils.loader.show();
                 ipcRenderer.send('app-get-logs', creds);
@@ -67,27 +62,43 @@ let home = {};
                 log : {
                     href : $this.data('href'),
                     name : $this.html()
-                },
-                creds : {
-                    hostname : $cache.connectWindow.find('.input-hostname').val(),
-                    username : $cache.connectWindow.find('.input-username').val(),
-                    password : $cache.connectWindow.find('.input-password').val(),
-                    staging : $cache.connectWindow.find('.input-staging').val()
                 }
             };
             
+            args.creds = getCredentials();
+            
             ipcRenderer.send('app-get-log', args);
+        },
+        
+        refreshLogList : (e) => {
+            let creds = getCredentials();
+            
+            home.utils.loader.show();
+            ipcRenderer.send('app-get-logs', creds);
         }
     };
+    
+    function getCredentials(){
+        let creds = {
+            hostname : $cache.connectWindow.find('.input-hostname').val(),
+            username : $cache.connectWindow.find('.input-username').val(),
+            password : $cache.connectWindow.find('.input-password').val(),
+            staging : $cache.connectWindow.find('.input-staging').val()
+        };
+        
+        return creds;
+    }
     
     function initCache(){
         $cache.logs = $('#app-sandbox-logs');
         $cache.logScreen = $('#screen-sandbox-logs');
         $cache.connectWindow = $('#screen-sandbox-connect');
+        $cache.refreshFile = $('#refresh-log-list');
     }
     
     function initEvents(){
         $cache.logs.on('click', events.openLogsScreen);
+        $cache.refreshFile.on('click', events.refreshLogList);
     }
     
     home.logs = {
