@@ -16,11 +16,11 @@ module.exports = function(event, args){
         },
         strictSSL : false
     }, (err, res, body) => {
-        if(err) {
-            console.error(`ERROR : error in test connection for sandbox login\n${err}`);
-            event.sender.send('login-failure');
-        } else {
+        if(!err && res.statusCode < 400){
             event.sender.send('login-success');
+        } else {
+            // TODO : Add logging for bad login
+            event.sender.send('login-failure');
         }
     });
 };
