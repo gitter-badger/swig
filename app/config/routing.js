@@ -19,11 +19,6 @@ module.exports = () => {
         require('../controllers/sandbox-login')(event, args);
     });
     
-    ipcMain.on('ipc-test-start', (event, arg) => {
-        console.log('You have done science!');
-        event.sender.send('ipc-test-reply');
-    });
-    
     ipcMain.on('app-get-logs', logController.getLogList);
     ipcMain.on('app-get-log', logController.fetchLogFile);
     ipcMain.on('app-clear-log-file', logController.clearLogFile);

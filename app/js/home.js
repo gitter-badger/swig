@@ -153,12 +153,8 @@ let home = {};
 }(home = home || {}, $, ipcRenderer));
 
 
-
 /**
-    @namespace home.nav 
-    
-    TODO : This is now a mixed namespace with nav functionality and login functionality.  Consider breaking out sandbox
-        login into it's own namespace
+    @namespace home.login
 **/
 (function(home, $, ipcRenderer){
     let $cache = {};
@@ -180,17 +176,6 @@ let home = {};
     });
     
     let events = {
-        appExit : function(e){
-            ipcRenderer.send('app-exit');
-        },
-        
-        connectClick : function(e){
-            var $this = $(this);
-            
-            $this.toggleClass('active');
-            $cache.connectWindow.toggleClass('active');
-        },
-        
         sandboxConnect : function(e){
             let data = {
                 hostname : $cache.connectWindow.find('.input-hostname').val(),
@@ -204,18 +189,54 @@ let home = {};
         }
     };
     
+    function initEvents(){
+        $cache.sandboxSubmit.on('click', events.sandboxConnect);
+    }
+    
+    function initCache(){
+        $cache.connectWindow = $('#screen-sandbox-connect');
+        $cache.connect = $('#app-sandbox-connect');
+        $cache.header = $('#header');
+        $cache.sandboxSubmit = $cache.connectWindow.find('#sandbox-login-submit');
+    }
+    
+    home.login = {
+        init : () => {
+            initCache();
+            initEvents();
+        }
+    };
+}(home = home || {}, $, ipcRenderer));
+
+/**
+    @namespace home.nav 
+**/
+(function(home, $, ipcRenderer){
+    let $cache = {};
+
+    let events = {
+        appExit : function(e){
+            ipcRenderer.send('app-exit');
+        },
+        
+        connectClick : function(e){
+            var $this = $(this);
+            
+            $this.toggleClass('active');
+            $cache.connectWindow.toggleClass('active');
+        }
+    };
+    
     function initCache(){
         $cache.appExit = $('#app-exit');
         $cache.header = $('#header');
         $cache.connect = $('#app-sandbox-connect');
         $cache.connectWindow = $('#screen-sandbox-connect');
-        $cache.sandboxSubmit = $cache.connectWindow.find('#sandbox-login-submit');
     }
     
     function initEvents(){
         $cache.appExit.on('click', events.appExit);
         $cache.connect.on('click', events.connectClick);
-        $cache.sandboxSubmit.on('click', events.sandboxConnect);
     }
     
     home.nav = {
@@ -260,6 +281,7 @@ let home = {};
 
 $(document).ready(() => {
     home.nav.init();
+    home.login.init();
     home.utils.init();
     home.logs.init();
 });
