@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="../../public/css/style.css">
+  </head>
+  <body class="app-drag">
+    <div id="page-loader" class="preloader-container">
+        <!-- CSS Preloader : Credit to Deineko @ https://codepen.io/deineko/pen/EPwPNV -->
+        <div class="preloader"></div>
+    </div>
+    
+    <header id="header" class="header">
+        <div id="app-sandbox-connect" class="header-item app-sandbox-connect border-red">
+            Connect
+        </div>
+        <div id="app-sandbox-logs" class="header-item app-sandbox-logs border-red">
+            Logs
+        </div>
+        <div id="app-exit" class="header-item app-exit">
+            X
+        </div>
+    </header>
+    
+    <div id="screen-sandbox-connect" class="sandbox-connect-slide">
+        <span class="slide-title">Sandbox Login</span>
+        
+        <div class="error-container">
+            <span class="connection-error">Error creating sandbox config.  Please try again.</span>
+        </div>
+        
+        <form class="sandbox-login-form">
+            <span class="input-title">Hostname</span>
+            <input type="text" class="input-hostname"></input>
+            
+            <span class="input-title">Username</span>
+            <input type="text" class="input-username"></input>
+            
+            <span class="input-title">Password</span>
+            <input type="password" class="input-password"></input>
+            
+            <span class="input-title">Active Code Staging Directory</span>
+            <input type="text" class="input-staging"></input>
+        </form>
+        
+        <div id="sandbox-login-submit" class="sandbox-login-submit">Login</div>
+    </div>
+    
+    <div id="screen-sandbox-logs" class="sandbox-logs-slide">
+        <div class="sandbox-logs-controls">
+            <div id="active-log-file" style="display: none !important;"></div>
+            <div class="log-list-controls">
+                <div id="refresh-log-list" class="log-control-button">Refresh List</div>
+            </div>
+            <div class="log-view-controls">
+                <div id="refresh-log-view" class="log-control-button">Refresh File</div>
+                <div id="clear-log-file" class="log-control-button">Reset Log File</div>
+            </div>
+        </div>
+        <ul>
+            <li class="sandbox-logs-list"></li>
+            <li class="sandbox-logs-viewer">viewer</li>
+        </ul>
+    </div>
+    
+    <script src="../js/home.js"></script>
+  </body>
+</html>

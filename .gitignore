@@ -1,2 +1,11 @@
 # Ignore all node modules
 /node_modules/
+
+# Ignore builds
+/public/
+
+# Ignored due to containing un-hashed login credentials
+sandbox.json
+
+# Ignore outputs from npm debugging
+npm-debug.log

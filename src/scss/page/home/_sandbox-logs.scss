@@ -1,0 +1,84 @@
+.sandbox-logs-slide {
+    display: none;
+    height: 100%;
+    width: 100%;
+    
+    &.active {
+        display: block;
+    }
+    
+    ul {
+        height: 100%;
+    }
+    
+    .sandbox-logs-controls {
+        width: 100%;
+        background-color: #afafaf;
+        height: 40px;
+    }
+    
+    .sandbox-logs-list {
+        float: left;
+        width: auto;
+        max-width: 500px;
+        overflow: auto;
+        height: 100%;
+        border-right: 1px solid #000;
+        padding: 5px;
+        
+        .log-name {
+            height: 22px;
+            white-space: nowrap;
+            cursor: pointer;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+            
+            &:last-child {
+                margin-bottom: 40px;
+            }
+        }
+    }
+    
+    .sandbox-logs-viewer {
+        float: none;
+        overflow: auto;
+        padding: 5px 10px;
+        height: 100%;
+        
+        pre {
+            margin-bottom: 10px;
+            font-size: 12px;
+            
+            &:last-child {
+                margin-bottom: 80px;
+            }
+        }
+    }
+}
+
+.log-list-controls {
+    float: left;
+    padding-left: 10px;
+}
+
+.log-view-controls {
+    float: right;
+    padding-right: 10px;
+}
+
+.log-control-button {
+    height: 34px;
+    margin-top: 3px;
+    padding: 5px 5px 0;
+    font-size: 18px;
+    float: left;
+    margin-left: 10px;
+    border: 1px solid #000;
+    cursor: pointer;
+    
+    &:first-child {
+        margin-left: 0;
+    }
+}
