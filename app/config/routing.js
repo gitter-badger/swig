@@ -19,7 +19,7 @@ module.exports = () => {
         require('../controllers/sandbox-login')(event, args);
     });
     
-    ipcMain.on('home-get-logs', logController.getLogList);
-    ipcMain.on('home-get-log', logController.fetchLogFile);
-    ipcMain.on('home-clear-log-file', logController.clearLogFile);
+    ipcMain.on('logs-get-logs', logController.getLogList);
+    ipcMain.on('logs-get-log', logController.fetchLogFile);
+    ipcMain.on('logs-clear-log-file', logController.clearLogFile);
 };

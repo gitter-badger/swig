@@ -54,7 +54,7 @@ let home = {};
                 let creds = getCredentials();
                 
                 home.utils.loader.show();
-                ipcRenderer.send('home-get-logs', creds);
+                ipcRenderer.send('logs-get-logs', creds);
             }
         },
         
@@ -75,14 +75,14 @@ let home = {};
             
             args.creds = getCredentials();
             
-            ipcRenderer.send('home-get-log', args);
+            ipcRenderer.send('logs-get-log', args);
         },
         
         refreshLogList : (e) => {
             let creds = getCredentials();
             
             home.utils.loader.show();
-            ipcRenderer.send('home-get-logs', creds);
+            ipcRenderer.send('logs-get-logs', creds);
         },
         
         refreshLogFile : (e) => {
@@ -97,7 +97,7 @@ let home = {};
             
             args.creds = getCredentials();
             
-            ipcRenderer.send('home-get-log', args);
+            ipcRenderer.send('logs-get-log', args);
         },
         
         clearLogFile : (e) => {
@@ -112,7 +112,7 @@ let home = {};
             
             args.creds = getCredentials();
             
-            ipcRenderer.send('home-clear-log-file', args);
+            ipcRenderer.send('logs-clear-log-file', args);
         }
     };
     
