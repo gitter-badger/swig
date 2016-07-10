@@ -2,7 +2,13 @@
 
 ------
 
-## Alpha v0.1
+## Alpha v0.1.1
+  - Adds handlebars templating support
+  - Adds generic main IPC channel for fetching a template file
+
+------
+
+## Alpha v0.1 : Log Utility
   - Adds login panel for setting up and testing sandbox credentials
     - Attempts a GET request to the TEMP folder on your sandbox to validate your credentials
   - Adds Logs interface for retrieving and previewing Demandware Logs
