@@ -19,6 +19,14 @@ module.exports = () => {
         require('../controllers/sandbox-login')(event, args);
     });
     
+    ipcMain.on('get-template-html', (event, args) => {
+        // do nothing
+    });
+    
+    ipcMain.on('get-template-hbs', (event, args) => {
+        // do nothing
+    });
+    
     ipcMain.on('logs-get-logs', logController.getLogList);
     ipcMain.on('logs-get-log', logController.fetchLogFile);
     ipcMain.on('logs-clear-log-file', logController.clearLogFile);
