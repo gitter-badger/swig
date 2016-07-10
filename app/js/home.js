@@ -47,7 +47,13 @@ let home = {};
     });
     
     ipcRenderer.on('template-log-dialog', (event, data) => {
-        console.log(data);
+        $cache.logsDialog.html(data);
+        
+        $('#clear-log-apporoved').on('click', events.clearLogFile);
+        
+        $('#clear-log-denied').on('click', (e) => {
+            $cache.logsDialog.html('');
+        });
     });
     
     let events = {
@@ -114,6 +120,8 @@ let home = {};
         clearLogFile : (e) => {
             home.utils.loader.show();
             
+            $cache.logsDialog.html('');
+            
             let args = {
                 log : {
                     href : $cache.activeLog.data('href'),
@@ -146,6 +154,7 @@ let home = {};
         $cache.refreshFile = $('#refresh-log-view');
         $cache.clearLogFile = $('#clear-log-file');
         $cache.activeLog = $('#active-log-file');
+        $cache.logsDialog = $('#logs-dialog');
     }
     
     function initEvents(){
