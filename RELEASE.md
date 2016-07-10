@@ -5,6 +5,7 @@
 ## Alpha v0.1.1
   - Adds handlebars templating support
   - Adds generic main IPC channel for fetching a template file
+  - [Completes #3](https://github.com/ominestre/swig/issues/3) : Adds dialog warning box for when a user resets a file
 
 ------
 
