@@ -46,6 +46,10 @@ let home = {};
         home.utils.loader.hide();
     });
     
+    ipcRenderer.on('template-log-dialog', (event, data) => {
+        console.log(data);
+    });
+    
     let events = {
         openLogsScreen : () => {
             if($cache.logScreen.hasClass('active')){
@@ -100,6 +104,13 @@ let home = {};
             ipcRenderer.send('logs-get-log', args);
         },
         
+        clearLogDialog : (e) => {
+            ipcRenderer.send('get-template-html', {
+                name : 'logs/clear-log-dialog.html',
+                sender : 'template-log-dialog'
+            });
+        },
+        
         clearLogFile : (e) => {
             home.utils.loader.show();
             
@@ -141,7 +152,7 @@ let home = {};
         $cache.logs.on('click', events.openLogsScreen);
         $cache.refreshList.on('click', events.refreshLogList);
         $cache.refreshFile.on('click', events.refreshLogFile);
-        $cache.clearLogFile.on('click', events.clearLogFile);
+        $cache.clearLogFile.on('click', events.clearLogDialog);
     }
     
     home.logs = {
