@@ -123,6 +123,8 @@ function clearLog(credentials, event, log){
         })
     );
     
+    fs.unlinkSync(`${appData}\\${log.name}`);
+    
     event.sender.send('reset-log-file');
 }
 
