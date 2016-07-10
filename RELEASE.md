@@ -6,6 +6,11 @@
   - Adds handlebars templating support
   - Adds generic main IPC channel for fetching a template file
   - [Completes #3](https://github.com/ominestre/swig/issues/3) : Adds dialog warning box for when a user resets a file
+  
+##### Bug Fixes
+  - [Fixes #8](https://github.com/ominestre/swig/issues/8) : When resetting a log file I create a blank file in AppData and push that to the
+  remote server, which clears the log.  There was nothing setup to delete these blank files so eventually a users AppData/swig/ directory could
+  become polluted with excess 0KB files.
 
 ------
 
