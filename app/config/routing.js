@@ -9,6 +9,7 @@
 
 const {app, ipcMain} = require('electron');
 const logController = require('../controllers/sandbox-logs');
+const templates = require('../controllers/templates');
 
 module.exports = () => {
     ipcMain.on('app-exit', (event, args) => {
@@ -19,7 +20,10 @@ module.exports = () => {
         require('../controllers/sandbox-login')(event, args);
     });
     
-    ipcMain.on('app-get-logs', logController.getLogList);
-    ipcMain.on('app-get-log', logController.fetchLogFile);
-    ipcMain.on('app-clear-log-file', logController.clearLogFile);
+    ipcMain.on('get-template-html', templates.html);
+    ipcMain.on('get-template-hbs', templates.hbs);
+
+    ipcMain.on('logs-get-logs', logController.getLogList);
+    ipcMain.on('logs-get-log', logController.fetchLogFile);
+    ipcMain.on('logs-clear-log-file', logController.clearLogFile);
 };
