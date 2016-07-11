@@ -9,3 +9,6 @@ sandbox.json
 
 # Ignore outputs from npm debugging
 npm-debug.log
+
+# Ignore releases
+/releases/
