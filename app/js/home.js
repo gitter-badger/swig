@@ -197,6 +197,8 @@ let home = {};
     
     let events = {
         sandboxConnect : function(e){
+            e.preventDefault();
+            
             let data = {
                 hostname : $cache.connectWindow.find('.input-hostname').val(),
                 username : $cache.connectWindow.find('.input-username').val(),
@@ -217,7 +219,7 @@ let home = {};
         $cache.connectWindow = $('#screen-sandbox-connect');
         $cache.connect = $('#app-sandbox-connect');
         $cache.header = $('#header');
-        $cache.sandboxSubmit = $cache.connectWindow.find('#sandbox-login-submit');
+        $cache.sandboxSubmit = $cache.connectWindow.find('.sandbox-login-submit');
     }
     
     home.login = {
