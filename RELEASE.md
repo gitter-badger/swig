@@ -6,6 +6,7 @@
   - Adds handlebars templating support
   - Adds generic main IPC channel for fetching a template file
   - [Completes #3](https://github.com/ominestre/swig/issues/3) : Adds dialog warning box for when a user resets a file
+  - [Completes #1](https://github.com/ominestre/swig/issues/1) : Adds enter key support for submitting the sandbox login form
   
 ##### Bug Fixes
   - [Fixes #8](https://github.com/ominestre/swig/issues/8) : When resetting a log file I create a blank file in AppData and push that to the
