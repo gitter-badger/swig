@@ -46,6 +46,16 @@ let home = {};
         home.utils.loader.hide();
     });
     
+    ipcRenderer.on('template-log-dialog', (event, data) => {
+        $cache.logsDialog.html(data);
+        
+        $('#clear-log-apporoved').on('click', events.clearLogFile);
+        
+        $('#clear-log-denied').on('click', (e) => {
+            $cache.logsDialog.html('');
+        });
+    });
+    
     let events = {
         openLogsScreen : () => {
             if($cache.logScreen.hasClass('active')){
@@ -54,7 +64,7 @@ let home = {};
                 let creds = getCredentials();
                 
                 home.utils.loader.show();
-                ipcRenderer.send('app-get-logs', creds);
+                ipcRenderer.send('logs-get-logs', creds);
             }
         },
         
@@ -75,14 +85,14 @@ let home = {};
             
             args.creds = getCredentials();
             
-            ipcRenderer.send('app-get-log', args);
+            ipcRenderer.send('logs-get-log', args);
         },
         
         refreshLogList : (e) => {
             let creds = getCredentials();
             
             home.utils.loader.show();
-            ipcRenderer.send('app-get-logs', creds);
+            ipcRenderer.send('logs-get-logs', creds);
         },
         
         refreshLogFile : (e) => {
@@ -97,11 +107,20 @@ let home = {};
             
             args.creds = getCredentials();
             
-            ipcRenderer.send('app-get-log', args);
+            ipcRenderer.send('logs-get-log', args);
+        },
+        
+        clearLogDialog : (e) => {
+            ipcRenderer.send('get-template-html', {
+                name : 'logs/clear-log-dialog.html',
+                sender : 'template-log-dialog'
+            });
         },
         
         clearLogFile : (e) => {
             home.utils.loader.show();
+            
+            $cache.logsDialog.html('');
             
             let args = {
                 log : {
@@ -112,7 +131,7 @@ let home = {};
             
             args.creds = getCredentials();
             
-            ipcRenderer.send('app-clear-log-file', args);
+            ipcRenderer.send('logs-clear-log-file', args);
         }
     };
     
@@ -135,13 +154,14 @@ let home = {};
         $cache.refreshFile = $('#refresh-log-view');
         $cache.clearLogFile = $('#clear-log-file');
         $cache.activeLog = $('#active-log-file');
+        $cache.logsDialog = $('#logs-dialog');
     }
     
     function initEvents(){
         $cache.logs.on('click', events.openLogsScreen);
         $cache.refreshList.on('click', events.refreshLogList);
         $cache.refreshFile.on('click', events.refreshLogFile);
-        $cache.clearLogFile.on('click', events.clearLogFile);
+        $cache.clearLogFile.on('click', events.clearLogDialog);
     }
     
     home.logs = {
@@ -177,6 +197,8 @@ let home = {};
     
     let events = {
         sandboxConnect : function(e){
+            e.preventDefault();
+            
             let data = {
                 hostname : $cache.connectWindow.find('.input-hostname').val(),
                 username : $cache.connectWindow.find('.input-username').val(),
@@ -197,7 +219,7 @@ let home = {};
         $cache.connectWindow = $('#screen-sandbox-connect');
         $cache.connect = $('#app-sandbox-connect');
         $cache.header = $('#header');
-        $cache.sandboxSubmit = $cache.connectWindow.find('#sandbox-login-submit');
+        $cache.sandboxSubmit = $cache.connectWindow.find('.sandbox-login-submit');
     }
     
     home.login = {
