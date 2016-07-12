@@ -2,6 +2,12 @@
 
 ------
 
+## Alpha v0.1.2
+  - Adds build task for packaging the electron application for Distribution
+  - Adds NSIS installer script for creating an EXE
+
+------
+
 ## Alpha v0.1.1
   - Adds handlebars templating support
   - Adds generic main IPC channel for fetching a template file
