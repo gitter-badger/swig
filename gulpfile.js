@@ -10,9 +10,39 @@ const notify = require('gulp-notify');              // system tray notifications
 const packager = require('electron-packager');      // utility for packaging electron apps for distribution
 const fs = require('fs');
 
-function FileException(name, message) {
-    this.name = name;
-    this.message = message;
+/**
+    @desc copy a file and fire off a callback function or error or completion
+    
+    @param {String} source - source file to copy
+    @param {String} target - where to copy the file to
+    @param {Function} cb - callback function to invoke on error on after completion of copy
+**/
+function copyFile(source, target, cb){
+    let cbCalled = false;
+    
+    function callback(err){
+        if(!cbCalled){
+            cb(err);
+            cbCalled = true;
+        }
+    }
+    
+    let read = fs.createReadStream(source);
+    let write = fs.createWriteStream(target);
+    
+    read.on('error', (err) => {
+        callback(err);
+    });
+    
+    write.on('error', (err) => {
+        callback(err);
+    });
+    
+    write.on('close', (err) => {
+        cb();
+    });
+    
+    read.pipe(write);
 }
 
 gulp.task('sass', () => {
@@ -58,24 +88,6 @@ gulp.task('package', () => {
     };
     
     packager(options, (err, appPaths) => {
-        function copyFile(source, target){
-            try {
-                var read = fs.createReadStream(source);
-                
-                read.on('error', (err) => {
-                    throw new FileException('Copy Exception', 'Error copying file');
-                });
-                
-                var write = fs.createWriteStream(target);
-                
-                write.on('error', (err) => {
-                    throw new FileException('Copy Exception', 'Error copying file');
-                });
-            } catch (err) {
-                console.error('Error copying icon and installer script.  See readme.md to do this manually');
-            }
-        }
-        
         if(err){
             console.error(`Error during packaging: ${err}`);
         } else {
