@@ -1,6 +1,6 @@
 {
   "name": "swig",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "description": "Electron app that fires off gulp utilities",
   "main": "main.js",
   "scripts": {
