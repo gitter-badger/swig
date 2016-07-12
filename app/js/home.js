@@ -46,16 +46,6 @@ let home = {};
         home.utils.loader.hide();
     });
     
-    ipcRenderer.on('template-log-dialog', (event, data) => {
-        $cache.logsDialog.html(data);
-        
-        $('#clear-log-apporoved').on('click', events.clearLogFile);
-        
-        $('#clear-log-denied').on('click', (e) => {
-            $cache.logsDialog.html('');
-        });
-    });
-    
     let events = {
         openLogsScreen : () => {
             if($cache.logScreen.hasClass('active')){
@@ -111,16 +101,13 @@ let home = {};
         },
         
         clearLogDialog : (e) => {
-            ipcRenderer.send('get-template-html', {
-                name : 'logs/clear-log-dialog.html',
-                sender : 'template-log-dialog'
-            });
+            $cache.logsDialog.toggleClass('active');
         },
         
         clearLogFile : (e) => {
             home.utils.loader.show();
             
-            $cache.logsDialog.html('');
+            $cache.logsDialog.removeClass('active');
             
             let args = {
                 log : {
@@ -155,6 +142,8 @@ let home = {};
         $cache.clearLogFile = $('#clear-log-file');
         $cache.activeLog = $('#active-log-file');
         $cache.logsDialog = $('#logs-dialog');
+        $cache.clearLogDeny = $('#clear-log-denied');
+        $cache.clearLogApprove = $('#clear-log-approved');
     }
     
     function initEvents(){
@@ -162,6 +151,8 @@ let home = {};
         $cache.refreshList.on('click', events.refreshLogList);
         $cache.refreshFile.on('click', events.refreshLogFile);
         $cache.clearLogFile.on('click', events.clearLogDialog);
+        $cache.clearLogApprove.on('click', events.clearLogFile);
+        $cache.clearLogDeny.on('click', events.clearLogDialog);
     }
     
     home.logs = {
