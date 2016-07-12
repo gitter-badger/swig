@@ -83,6 +83,14 @@
     }
 }
 
+#logs-dialog {
+    display: none;
+    
+    &.active {
+        display: block;
+    }
+}
+
 .clear-log-dialog {
     .clear-log-header-bar {
         background-color: #ff9797;
