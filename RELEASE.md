@@ -8,6 +8,8 @@
   
 ##### Bug Fixes
   - [Fixes #11](https://github.com/ominestre/swig/issues/13) : Changes the error message to no longer refrence the Sandbox.json file
+  - [Fixes #15](https://github.com/ominestre/swig/issues/15) : Hides the UI elements for refreshing and deleting a log file when no logs are currently
+  active.
 
 ------
 

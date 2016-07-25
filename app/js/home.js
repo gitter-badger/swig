@@ -37,6 +37,10 @@ let home = {};
             $html.append(`<pre style="word-wrap: break-word; white-space: pre-wrap;">${val}</pre>`);
         });
         
+        if(!$cache.logControls.hasClass('active')){
+            $cache.logControls.addClass('active');
+        }
+        
         $cache.logScreen.find('.sandbox-logs-viewer').html($html);
         home.utils.loader.hide();
     });
@@ -144,6 +148,7 @@ let home = {};
         $cache.logsDialog = $('#logs-dialog');
         $cache.clearLogDeny = $('#clear-log-denied');
         $cache.clearLogApprove = $('#clear-log-approved');
+        $cache.logControls = $('.log-view-controls');
     }
     
     function initEvents(){
