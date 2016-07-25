@@ -19,7 +19,6 @@ module.exports = function(event, args){
         if(!err && res.statusCode < 400){
             event.sender.send('login-success');
         } else {
-            // TODO : Add logging for bad login
             event.sender.send('login-failure');
         }
     });

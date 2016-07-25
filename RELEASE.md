@@ -5,6 +5,9 @@
 ## Alpha v0.1.2
   - Adds build task for packaging the electron application for Distribution
   - Adds NSIS installer script for creating an EXE
+  
+##### Bug Fixes
+  - [Fixes #11](https://github.com/ominestre/swig/issues/13) : Changes the error message to no longer refrence the Sandbox.json file
 
 ------
 
