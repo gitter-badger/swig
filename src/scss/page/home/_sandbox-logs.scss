@@ -66,6 +66,11 @@
 .log-view-controls {
     float: right;
     padding-right: 10px;
+    display: none;
+    
+    &.active {
+        display: block;
+    }
 }
 
 .log-control-button {
