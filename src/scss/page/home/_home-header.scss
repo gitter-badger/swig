@@ -3,9 +3,10 @@
     background-color: #dad2c8;
     
     .header-item {
+        font-family: open-sans-semibold;
         display: inline-block;
         font-size: 22px;
-        padding-top: 5px;
+        padding: 5px 5px 0;
         cursor: pointer;
         margin-right: 25px;
         border-bottom: 5px solid;
@@ -24,6 +25,8 @@
         }
         
         &.app-sandbox-logs {
+            height: 100%;
+            border-bottom: none;
             display: none;
             
             &.active {
@@ -51,6 +54,10 @@
         
         &.border-green {
             border-color: #1dd633;
+        }
+        
+        &:hover {
+            background-color: #e6e4e1;
         }
     }
 }
