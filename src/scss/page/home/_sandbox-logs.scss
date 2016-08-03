@@ -13,7 +13,8 @@
     
     .sandbox-logs-controls {
         width: 100%;
-        background-color: #afafaf;
+        background-color: #333;
+        color: #fff;
         height: 40px;
     }
     
@@ -80,7 +81,6 @@
     font-size: 18px;
     float: left;
     margin-left: 10px;
-    border: 1px solid #000;
     cursor: pointer;
     
     &:first-child {
