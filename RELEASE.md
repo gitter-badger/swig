@@ -2,6 +2,17 @@
 
 ------
 
+## Alpha v0.1.2
+  - Adds build task for packaging the electron application for Distribution
+  - Adds NSIS installer script for creating an EXE
+  
+##### Bug Fixes
+  - [Fixes #11](https://github.com/ominestre/swig/issues/13) : Changes the error message to no longer refrence the Sandbox.json file
+  - [Fixes #15](https://github.com/ominestre/swig/issues/15) : Hides the UI elements for refreshing and deleting a log file when no logs are currently
+  active.
+
+------
+
 ## Alpha v0.1.1
   - Adds handlebars templating support
   - Adds generic main IPC channel for fetching a template file

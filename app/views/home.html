@@ -28,7 +28,7 @@
         <span class="slide-title">Sandbox Login</span>
         
         <div class="error-container">
-            <span class="connection-error">Error creating sandbox config.  Please try again.</span>
+            <span class="connection-error">Error establishing connection with sandbox.  Double check your credentials and try again.</span>
         </div>
         
         <form class="sandbox-login-form">
@@ -61,10 +61,30 @@
                 <div id="clear-log-file" class="log-control-button">Reset Log File</div>
             </div>
         </div>
-        <div id="logs-dialog"></div>
+        <div id="logs-dialog">
+            <div id="clear-log-dialog-container" class="clear-log-dialog">
+                <div class="clear-log-header-bar">
+                    <span>Are you sure?</span>
+                </div>
+                <div class="clear-log-main">
+                    <p>
+                        This operation is destructive and replaces the current open log with a blank copy.
+                        You will not be able to recover this file.
+                    </p>
+                    
+                    <div id="clear-log-approved" class="log-dialog-button">
+                        Nuke it!
+                    </div>
+                    
+                    <div id="clear-log-denied" class="log-dialog-button">
+                        Abort!
+                    </div>
+                </div>
+            </div>
+        </div>
         <ul>
             <li class="sandbox-logs-list"></li>
-            <li class="sandbox-logs-viewer">viewer</li>
+            <li class="sandbox-logs-viewer"></li>
         </ul>
     </div>
     
