@@ -95,7 +95,14 @@ function getLog(credentials, event, log){
             let stats = fs.statSync(`${global.userData}/logs-temp/${log.name}`);
             let file = fs.readFileSync(`${global.userData}/logs-temp/${log.name}`);
             let delta = response.replace(file, '');
-            response = `${file}{!TAIL}${delta}`;
+            
+            if(delta.length > 0){
+                response = `${file}{!TAIL}${delta}`;
+                
+                // replace old log file with the new response
+                fs.unlinkSync(`${global.userData}/logs-temp/${log.name}`);
+                fs.writeFileSync(`${global.userData}/logs-temp/${log.name}`, response);
+            }
         } catch(e){
             fs.writeFileSync(`${global.userData}/logs-temp/${log.name}`, response);
         }
