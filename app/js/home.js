@@ -31,12 +31,21 @@ let home = {};
     ipcRenderer.on('get-log-file', (event, data) => {
         let $html = $('<div class="log-view"></div>');
         data = data.replace(/\[20/g, '{!BREAK}[20');
-        let logEntries = data.split(/\{\!BREAK\}/);
-
-        logEntries.forEach((val, index, array) => {
-            $html.append(`<pre style="word-wrap: break-word; white-space: pre-wrap;">${val}</pre>`);
-        });
         
+        let tailGroups = data.split(/\{\!TAIL\}/);
+        
+        tailGroups.forEach((val, index, array) => {
+            let $tail = $('<div class="tail-group"></div>');
+            
+            let logEntries = val.split(/\{\!BREAK\}/);
+    
+            logEntries.forEach((val, index, array) => {
+                $tail.append(`<pre style="word-wrap: break-word; white-space: pre-wrap;">${val}</pre>`);
+            });
+            
+            $html.append($tail);
+        });
+
         if(!$cache.logControls.hasClass('active')){
             $cache.logControls.addClass('active');
         }
