@@ -91,6 +91,15 @@ function getLog(credentials, event, log){
             console.error(`Error retrieving log file : ${err}`);
         }
         
+        try {
+            let stats = fs.statSync(`${global.userData}/logs-temp/${log.name}`);
+            let file = fs.readFileSync(`${global.userData}/logs-temp/${log.name}`);
+            let delta = response.replace(file, '');
+            response = `${file}{!TAIL}${delta}`;
+        } catch(e){
+            fs.writeFileSync(`${global.userData}/logs-temp/${log.name}`, response);
+        }
+        
         event.sender.send('get-log-file', response);
     });
 }
