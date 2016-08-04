@@ -34,6 +34,10 @@ function createWindow() {
 
 app.on('ready', createWindow);
 app.on('window-all-closed', () => {
+    
+    // delete the log temp directory and all files contained within
+    require('./app/config/delete-directory')(`${global.userData}/logs-temp/`);
+    
     app.quit();
 });
 
