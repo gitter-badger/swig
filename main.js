@@ -3,6 +3,7 @@
 'use strict';
 
 const {app, BrowserWindow} = require('electron');             // Module to control application life.
+const fs = require('fs');
 
 let win;  // window global to prevent termination on garbage collection
 
@@ -16,6 +17,8 @@ function createWindow() {
         height: 1000,
         frame: true
     });
+    
+    fs.mkdirSync(`${global.userData}/logs-temp/`);
     
     win.loadURL(`file://${__dirname}/app/views/home.html`);
 
