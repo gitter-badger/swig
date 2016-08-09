@@ -95,9 +95,10 @@ function getLog(credentials, event, log){
             let stats = fs.statSync(`${global.userData}/logs-temp/${log.name}`);
             let file = fs.readFileSync(`${global.userData}/logs-temp/${log.name}`);
             let delta = response.replace(file, '');
+            let date = new Date();
             
             if(delta.length > 0){
-                response = `${file}{!TAIL}${delta}`;
+                response = `${file} {!TAIL} <span class="log-tail-date">Updated: ${date}</span> ${delta}`;
                 
                 // replace old log file with the new response
                 fs.unlinkSync(`${global.userData}/logs-temp/${log.name}`);
