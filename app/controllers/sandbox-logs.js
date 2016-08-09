@@ -43,7 +43,7 @@ function getFiles(response){
 /**
     @desc make a request to the sandbox instance for a list of logs and pass them into the file handler function
     
-    @param {Object} credentials - this is the include from the sandbox.json file containing your login credentials
+    @param {Object} credentials - demandware instance credentials
     @param {Object} event - this is the IPC event that will be used to respond back to the renderer process
 **/
 function getLogs(credentials, event){
@@ -72,7 +72,11 @@ function getLogs(credentials, event){
 }
 
 /**
-
+    @desc fetches a log file from the target instanced
+    
+    @param {Object} credentials - demandware instance credentials
+    @param {Object} event - this is the IPC event that will be used to respond back to the renderer process
+    @param {Object} log - details about the log file to retrieve
 **/
 function getLog(credentials, event, log){
     request({
@@ -85,6 +89,23 @@ function getLog(credentials, event, log){
     }, (err, inc, response) => {
         if(err) {
             console.error(`Error retrieving log file : ${err}`);
+        }
+        
+        try {
+            let stats = fs.statSync(`${global.userData}/logs-temp/${log.name}`);
+            let file = fs.readFileSync(`${global.userData}/logs-temp/${log.name}`);
+            let delta = response.replace(file, '');
+            let date = new Date();
+            
+            if(delta.length > 0){
+                response = `${file} {!TAIL} <span class="log-tail-date">Updated: ${date}</span> ${delta}`;
+                
+                // replace old log file with the new response
+                fs.unlinkSync(`${global.userData}/logs-temp/${log.name}`);
+                fs.writeFileSync(`${global.userData}/logs-temp/${log.name}`, response);
+            }
+        } catch(e){
+            fs.writeFileSync(`${global.userData}/logs-temp/${log.name}`, response);
         }
         
         event.sender.send('get-log-file', response);
