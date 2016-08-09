@@ -2,6 +2,12 @@
 
 ------
 
+## Alpha v0.2
+  - Adds basic version of tailing every time you refresh a log file.  This will add a red divider line with a time stamp each time you
+    refresh a log file to help you visualize what changed since your last refresh.
+
+------
+
 ## Alpha v0.1.2
   - Adds build task for packaging the electron application for Distribution
   - Adds NSIS installer script for creating an EXE
