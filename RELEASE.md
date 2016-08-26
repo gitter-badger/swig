@@ -3,6 +3,7 @@
 ------
 
 ## Alpha v0.2
+  - [Completes #22](https://github.com/ominestre/swig/issues/22) : Sets the applications default resolution to 1024 x 768 and set's it to maximize on load by default.
   - [Completes #20](https://github.com/ominestre/swig/issues/20) : Removes body limitation on vertical scrolling and removes the individual scroll overflow of each log pane.
   - [Completes #10](https://github.com/ominestre/swig/issues/10) : Adds a basic version of tailing every time you refresh a log file.  This will add a red divider line with a time stamp each time you refresh a log
   file to help you visualize what changed since your last refresh
