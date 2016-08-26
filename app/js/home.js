@@ -86,6 +86,9 @@ let home = {};
                 }
             };
             
+            // set the active log indicator in the log controls
+            $('#active-log .log-name').html(args.log.name);
+            
             $cache.activeLog.data('href', args.log.href);
             $cache.activeLog.html(args.log.name);
             
