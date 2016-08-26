@@ -3,8 +3,9 @@
 ------
 
 ## Alpha v0.2
-  - Adds basic version of tailing every time you refresh a log file.  This will add a red divider line with a time stamp each time you
-    refresh a log file to help you visualize what changed since your last refresh.
+  - [Completes #20](https://github.com/ominestre/swig/issues/20) : Removes body limitation on vertical scrolling and removes the individual scroll overflow of each log pane.
+  - [Completes #10](https://github.com/ominestre/swig/issues/10) : Adds a basic version of tailing every time you refresh a log file.  This will add a red divider line with a time stamp each time you refresh a log
+  file to help you visualize what changed since your last refresh
 
 ------
 
