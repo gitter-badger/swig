@@ -4,10 +4,6 @@
 
 const {ipcRenderer} = require('electron');
 
-// implements jQuery UI in a way that won't pollute the modules (I think) and allows it to be extended by jQuery UI
-window.$ = window.jQuery = require('../js/jquery.js');
-$.ui = require('../js/jquery-ui/jquery-ui.js');
-
 let home = {};
 
 
