@@ -28,6 +28,7 @@ let home = {};
         $cache.logScreen.find('.sandbox-logs-list').html($html);
         $cache.logScreen.find('.log-name').on('click', events.getLog);
         $cache.logScreen.addClass('active');
+        initPage();
         home.utils.loader.hide();
     });
     
@@ -176,6 +177,13 @@ let home = {};
         $cache.clearLogFile.on('click', events.clearLogDialog);
         $cache.clearLogApprove.on('click', events.clearLogFile);
         $cache.clearLogDeny.on('click', events.clearLogDialog);
+        $(window).on('resize', initPage);
+    }
+    
+    var initPage = function(){
+        $('#screen-sandbox-logs').css({
+            'max-height' : `${window.innerHeight - $('#header').height()}px`
+        });
     }
     
     home.logs = {
