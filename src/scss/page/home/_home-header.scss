@@ -34,6 +34,10 @@
             }
         }
         
+        &.active-nav {
+            background-color: #b5aea5;
+        }
+        
         &.app-exit {
             position: relative;
             left: 12px;
