@@ -66,7 +66,10 @@ let home = {};
         openLogsScreen : () => {
             if($cache.logScreen.hasClass('active')){
                 $cache.logScreen.removeClass('active');
+                $('#app-sandbox-logs').removeClass('active-nav');
             } else {
+                $('#app-sandbox-logs').addClass('active-nav');
+                
                 let creds = getCredentials();
                 
                 home.utils.loader.show();
