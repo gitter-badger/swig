@@ -1,5 +1,6 @@
 .sandbox-logs-slide {
     display: none;
+    overflow: hidden;
     height: 100%;
     width: 100%;
     
@@ -17,6 +18,16 @@
         background-color: #333;
         color: #fff;
         height: 40px;
+    }
+    
+    .log-view-container {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        
+        .sandbox-logs-list,
+        .sandbox-logs-viewer {
+            flex-grow: 1;
+        }
     }
     
     .sandbox-logs-list {
