@@ -25,6 +25,7 @@
         flex-direction: row;
         flex-wrap: nowrap;
         overflow: hidden;
+        /** the 40px magic number represents the height of the header.  Flex is pushing everything just slightly off the screen otherwise. **/
         height: calc(100% - 40px);
         
         .sandbox-logs-list {
