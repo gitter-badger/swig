@@ -4,10 +4,6 @@
 
 const {ipcRenderer} = require('electron');
 
-// implements jQuery UI in a way that won't pollute the modules (I think) and allows it to be extended by jQuery UI
-window.$ = window.jQuery = require('../js/jquery.js');
-$.ui = require('../js/jquery-ui/jquery-ui.js');
-
 let home = {};
 
 
@@ -28,6 +24,7 @@ let home = {};
         $cache.logScreen.find('.sandbox-logs-list').html($html);
         $cache.logScreen.find('.log-name').on('click', events.getLog);
         $cache.logScreen.addClass('active');
+        initPage();
         home.utils.loader.hide();
     });
     
@@ -176,6 +173,13 @@ let home = {};
         $cache.clearLogFile.on('click', events.clearLogDialog);
         $cache.clearLogApprove.on('click', events.clearLogFile);
         $cache.clearLogDeny.on('click', events.clearLogDialog);
+        $(window).on('resize', initPage);
+    }
+    
+    var initPage = function(){
+        $('#screen-sandbox-logs').css({
+            'max-height' : `${window.innerHeight - $('#header').height()}px`
+        });
     }
     
     home.logs = {

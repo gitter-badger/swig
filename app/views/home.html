@@ -5,6 +5,9 @@
     <title>SWIG!</title>
     
     <link rel="stylesheet" href="../../public/css/style.css">
+    
+    <script>window.$ = window.jQuery = require('../js/jquery.js');</script>
+    <script>window.$.ui = require('../js/jquery-ui/jquery-ui.js');</script>
   </head>
   <body class="app-drag">
     <div id="page-loader" class="preloader-container">
@@ -86,10 +89,10 @@
                 </div>
             </div>
         </div>
-        <ul>
-            <li class="sandbox-logs-list"></li>
-            <li class="sandbox-logs-viewer"></li>
-        </ul>
+        <div class="log-view-container">
+            <div class="sandbox-logs-list"></div>
+            <div class="sandbox-logs-viewer"></div>
+        </div>
     </div>
     
     <script src="../js/home.js"></script>
