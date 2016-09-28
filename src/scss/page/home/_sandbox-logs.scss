@@ -21,12 +21,23 @@
     }
     
     .log-view-container {
+        display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
+        overflow: auto;
         
-        .sandbox-logs-list,
-        .sandbox-logs-viewer {
+        .sandbox-logs-list {
+            min-height: min-content;
+            display: flex;
             flex-grow: 1;
+            flex-direction: column;
+        }
+        
+        .sandbox-logs-viewer {
+            min-height: min-content;
+            display: flex;
+            flex-grow: 2;
+            flex-direction: column;
         }
     }
     
@@ -34,7 +45,6 @@
         order: 1;
         width: 500px;
         border-right: 1px solid #000;
-        padding: 5px;
         
         .log-name {
             height: 22px;
