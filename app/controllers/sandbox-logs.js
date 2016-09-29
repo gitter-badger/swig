@@ -91,23 +91,42 @@ function getLog(credentials, event, log){
             console.error(`Error retrieving log file : ${err}`);
         }
         
-        try {
-            let stats = fs.statSync(`${global.userData}/logs-temp/${log.name}`);
-            let file = fs.readFileSync(`${global.userData}/logs-temp/${log.name}`);
-            let delta = response.replace(file, '');
-            let date = new Date();
-            
-            if(delta.length > 0){
-                response = `${file} {!TAIL} <span class="log-tail-date">Updated: ${date}</span> ${delta}`;
-                
-                // replace old log file with the new response
-                fs.unlinkSync(`${global.userData}/logs-temp/${log.name}`);
-                fs.writeFileSync(`${global.userData}/logs-temp/${log.name}`, response);
+        function assertLogFile(filename){
+            try {
+                let stats = fs.statSync(`${global.userData}/logs-temp/${filename}`);
+                let file = fs.readFileSync(`${global.userData}/logs-temp/${filename}`);
+                return file;
+            } catch(e){
+                fs.writeFileSync(`${global.userData}/logs-temp/${filename}`, response);
+                return null
             }
-        } catch(e){
-            fs.writeFileSync(`${global.userData}/logs-temp/${log.name}`, response);
         }
         
+        let rawLogFile = assertLogFile(log.name);
+        let tailedLogFile = assertLogFile('tailed_' + log.name);
+        let delta = '';
+        let date = new Date();
+        
+        if(rawLogFile != null){
+            fs.unlinkSync(`${global.userData}/logs-temp/${log.name}`);
+            delta = response.replace(rawLogFile, '');
+        }
+        
+        if(delta.length <= 0){
+            delta = '<div class="nothing-to-display">Nothing new to display this time around</div>';
+        }
+        
+        fs.writeFileSync(`${global.userData}/logs-temp/${log.name}`, response);
+        
+        if(tailedLogFile != null){
+            response = `${tailedLogFile} {!TAIL} <span class="log-tail-date">Updated: ${date}</span> ${delta}`;
+            fs.unlinkSync(`${global.userData}/logs-temp/tailed_${log.name}`);
+        } else {
+            response = `${response} {!TAIL} <span class="log-tail-date">Updated: ${date}</span> ${delta}`;
+        }
+        
+        fs.writeFileSync(`${global.userData}/logs-temp/tailed_${log.name}`, response);
+
         event.sender.send('get-log-file', response);
     });
 }
