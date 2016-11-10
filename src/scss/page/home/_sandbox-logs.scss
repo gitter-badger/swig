@@ -126,7 +126,7 @@
     margin-left: 10px;
     cursor: pointer;
     
-    &:first-child {
+    &.active-log {
         margin-left: 0;
         margin-right: 125px;
         cursor: auto;
