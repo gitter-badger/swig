@@ -43,7 +43,7 @@ function getFiles(response){
 /**
     @desc make a request to the sandbox instance for a list of logs and pass them into the file handler function
     
-    @param {Object} credentials - this is the include from the sandbox.json file containing your login credentials
+    @param {Object} credentials - demandware instance credentials
     @param {Object} event - this is the IPC event that will be used to respond back to the renderer process
 **/
 function getLogs(credentials, event){
@@ -72,7 +72,11 @@ function getLogs(credentials, event){
 }
 
 /**
-
+    @desc fetches a log file from the target instanced
+    
+    @param {Object} credentials - demandware instance credentials
+    @param {Object} event - this is the IPC event that will be used to respond back to the renderer process
+    @param {Object} log - details about the log file to retrieve
 **/
 function getLog(credentials, event, log){
     request({
@@ -87,6 +91,42 @@ function getLog(credentials, event, log){
             console.error(`Error retrieving log file : ${err}`);
         }
         
+        function assertLogFile(filename){
+            try {
+                let stats = fs.statSync(`${global.userData}/logs-temp/${filename}`);
+                let file = fs.readFileSync(`${global.userData}/logs-temp/${filename}`);
+                return file;
+            } catch(e){
+                fs.writeFileSync(`${global.userData}/logs-temp/${filename}`, response);
+                return null
+            }
+        }
+        
+        let rawLogFile = assertLogFile(log.name);
+        let tailedLogFile = assertLogFile('tailed_' + log.name);
+        let delta = '';
+        let date = new Date();
+        
+        if(rawLogFile != null){
+            fs.unlinkSync(`${global.userData}/logs-temp/${log.name}`);
+            delta = response.replace(rawLogFile, '');
+        }
+        
+        if(delta.length <= 0){
+            delta = '<div class="nothing-to-display">Nothing new to display this time around</div>';
+        }
+        
+        fs.writeFileSync(`${global.userData}/logs-temp/${log.name}`, response);
+        
+        if(tailedLogFile != null){
+            response = `${tailedLogFile} {!TAIL} <span class="log-tail-date">Updated: ${date}</span> ${delta}`;
+            fs.unlinkSync(`${global.userData}/logs-temp/tailed_${log.name}`);
+        } else {
+            response = `${response} {!TAIL} <span class="log-tail-date">Updated: ${date}</span> ${delta}`;
+        }
+        
+        fs.writeFileSync(`${global.userData}/logs-temp/tailed_${log.name}`, response);
+
         event.sender.send('get-log-file', response);
     });
 }

@@ -3,7 +3,6 @@
 'use strict';
 
 const {ipcRenderer} = require('electron');
-const $ = require('../js/jquery.js');
 
 let home = {};
 
@@ -25,18 +24,28 @@ let home = {};
         $cache.logScreen.find('.sandbox-logs-list').html($html);
         $cache.logScreen.find('.log-name').on('click', events.getLog);
         $cache.logScreen.addClass('active');
+        initPage();
         home.utils.loader.hide();
     });
     
     ipcRenderer.on('get-log-file', (event, data) => {
         let $html = $('<div class="log-view"></div>');
         data = data.replace(/\[20/g, '{!BREAK}[20');
-        let logEntries = data.split(/\{\!BREAK\}/);
-
-        logEntries.forEach((val, index, array) => {
-            $html.append(`<pre style="word-wrap: break-word; white-space: pre-wrap;">${val}</pre>`);
-        });
         
+        let tailGroups = data.split(/\{\!TAIL\}/);
+        
+        tailGroups.forEach((val, index, array) => {
+            let $tail = $('<div class="tail-group"></div>');
+            
+            let logEntries = val.split(/\{\!BREAK\}/);
+    
+            logEntries.forEach((val, index, array) => {
+                $tail.append(`<pre style="word-wrap: break-word; white-space: pre-wrap;">${val}</pre>`);
+            });
+            
+            $html.append($tail);
+        });
+
         if(!$cache.logControls.hasClass('active')){
             $cache.logControls.addClass('active');
         }
@@ -54,7 +63,10 @@ let home = {};
         openLogsScreen : () => {
             if($cache.logScreen.hasClass('active')){
                 $cache.logScreen.removeClass('active');
+                $('#app-sandbox-logs').removeClass('active-nav');
             } else {
+                $('#app-sandbox-logs').addClass('active-nav');
+                
                 let creds = getCredentials();
                 
                 home.utils.loader.show();
@@ -73,6 +85,9 @@ let home = {};
                     name : $this.html()
                 }
             };
+            
+            // set the active log indicator in the log controls
+            $('#active-log .log-name').html(args.log.name);
             
             $cache.activeLog.data('href', args.log.href);
             $cache.activeLog.html(args.log.name);
@@ -158,6 +173,13 @@ let home = {};
         $cache.clearLogFile.on('click', events.clearLogDialog);
         $cache.clearLogApprove.on('click', events.clearLogFile);
         $cache.clearLogDeny.on('click', events.clearLogDialog);
+        $(window).on('resize', initPage);
+    }
+    
+    var initPage = function(){
+        $('#screen-sandbox-logs').css({
+            'max-height' : `${window.innerHeight - $('#header').height()}px`
+        });
     }
     
     home.logs = {
