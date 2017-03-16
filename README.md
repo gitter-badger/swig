@@ -1,5 +1,7 @@
 # SWIG : Sandbox Workbench Infinite Groove
 
+[![Join the chat at https://gitter.im/ominestre-swig/Lobby](https://badges.gitter.im/ominestre-swig/Lobby.svg)](https://gitter.im/ominestre-swig/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## About
 
 SWIG is an Electron app built to assist in the development of Demandware web applications.
